@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getAllStripeTransactions = async () => {
   const response = await axios
-    .get(`http://localhost:8080/api/stripe/allPayments`)
+    .get(`https://rodel-dot-services.herokuapp.com/api/stripe/allPayments`)
     .catch((err) => {
       console.log(err);
     });

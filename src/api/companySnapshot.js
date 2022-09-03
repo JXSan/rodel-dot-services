@@ -2,7 +2,9 @@ import axios from "axios";
 
 const getCompanyById = async (id) => {
   const response = await axios
-    .get(`http://localhost:8080/api/companysnapshot/id/${id}`)
+    .get(
+      `https://rodel-dot-services.herokuapp.com/api/companysnapshot/id/${id}`
+    )
     .catch((err) => {
       console.log(err);
     });
@@ -11,7 +13,7 @@ const getCompanyById = async (id) => {
 
 const getAllCompanies = async () => {
   const response = await axios
-    .get("http://localhost:8080/api/companysnapshot/all")
+    .get("https://rodel-dot-services.herokuapp.com/api/companysnapshot/all")
     .catch((err) => {
       console.log(err);
     });
@@ -20,7 +22,9 @@ const getAllCompanies = async () => {
 
 const getCurrentCompanies = async () => {
   const response = await axios
-    .get("http://localhost:8080/api/companysnapshot/currentlyDue")
+    .get(
+      "https://rodel-dot-services.herokuapp.com/api/companysnapshot/currentlyDue"
+    )
     .catch((err) => {
       console.log(err);
     });
@@ -29,7 +33,7 @@ const getCurrentCompanies = async () => {
 
 const getPastDue = async () => {
   const response = await axios
-    .get("http://localhost:8080/api/companysnapshot/pastDue")
+    .get("https://rodel-dot-services.herokuapp.com/api/companysnapshot/pastDue")
     .catch((err) => {
       console.log(err);
     });
@@ -38,7 +42,9 @@ const getPastDue = async () => {
 
 const getCompany = async (dotNumber) => {
   const response = await axios
-    .get(`http://localhost:8080/api/companysnapshot/${dotNumber}`)
+    .get(
+      `https://rodel-dot-services.herokuapp.com/api/companysnapshot/${dotNumber}`
+    )
     .catch((err) => {
       console.log(err);
     });
