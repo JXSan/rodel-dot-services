@@ -2,9 +2,7 @@ import axios from "axios";
 
 const getCompanyById = async (id) => {
   const response = await axios
-    .get(
-      `https://rodel-dot-services.herokuapp.com/api/companysnapshot/id/${id}`
-    )
+    .get(`https://rodel-dot-services.herokuapp.com/api/companysnapshot/${id}`)
     .catch((err) => {
       console.log(err);
     });
@@ -59,4 +57,5 @@ export {
   getPastDue,
   getUCRDue,
   getCompany,
+  getCompanyById,
 };

@@ -79,12 +79,14 @@ const AllCompaniesGrid = () => {
       <div className="p-4 rounded-lg flex items-center justify-center">
         <h1 className="text-2xl mb-2">{`All Companies`}</h1>
       </div>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={15}
-        rowsPerPageOptions={[20]}
-      />
+      <div className="mx-10 h-96">
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={15}
+          rowsPerPageOptions={[20]}
+        />
+      </div>
     </div>
   );
 };

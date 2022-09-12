@@ -9,4 +9,16 @@ const getAllStripeTransactions = async () => {
   if (response) return response.data;
 };
 
-export { getAllStripeTransactions };
+const createCharge = async (amount, description) => {
+  const response = await axios
+    .post("http://localhost:8081/api/stripe/payment", {
+      amount: amount,
+      description: description,
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  if (response) return response.data;
+};
+
+export { getAllStripeTransactions, createCharge };

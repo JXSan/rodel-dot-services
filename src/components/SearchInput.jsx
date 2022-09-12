@@ -3,14 +3,14 @@ import { getAllCompanies } from "../api/companySnapshot";
 import { Link } from "react-router-dom";
 
 const styles = {
-  searchInputWrapper: "flex flex-col items-center justify-center w-full h-24",
+  searchInputWrapper: "flex flex-col items-center justify-center w-full h-16",
   searchInput:
-    "w-2/4 appearance-none h-16 text-2xl hover:bg-gray-50 pl-6 border hover:border-0 border-gray-100 shadow-lg outline-none rounded-md",
+    "w-2/4 appearance-none h-14 text-lg hover:bg-gray-50 pl-6 border hover:border-0 border-gray-100 shadow-lg outline-none rounded-md",
   searchResultsWrapper:
     "overflow-hidden overflow-y-auto shadow-md mb-6 w-2/4 bg-gray-200 rounded-md min-h-min max-h-40 mt-[-15px]",
   searchResultsListWrapper: "p-2",
   searchResultItem:
-    "mb-4 text-2xl text-gray-600 hover:bg-gray-100 rounded-md px-4",
+    "mb-4 text-lg text-gray-600 hover:bg-gray-100 rounded-md px-4",
 };
 
 const SearchInput = () => {
