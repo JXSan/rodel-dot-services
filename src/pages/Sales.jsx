@@ -80,8 +80,7 @@ export const Sales = () => {
 
   const redirectToCheckout = async () => {
     const stripe = await getStripe();
-    stripe.paymentLinks.create(checkoutOptions).then((res) => {
-      console.log(res);
+    stripe.redirectToCheckout(checkoutOptions).then((res) => {
       console.log("Thanks");
     });
     // if (result) console.log(result);
