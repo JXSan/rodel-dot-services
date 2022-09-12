@@ -11,7 +11,7 @@ const getAllStripeTransactions = async () => {
 
 const createCharge = async (amount, description) => {
   const response = await axios
-    .post("http://localhost:8081/api/stripe/payment", {
+    .post("https://rodel-dot-services.herokuapp.com/api/stripe/payment", {
       amount: amount,
       description: description,
     })
