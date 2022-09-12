@@ -3,6 +3,14 @@ import { Menu } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { DataGrid } from "@mui/x-data-grid";
 import { getAllStripeTransactions } from "../api/stripeTransactions";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import Payments from "../components/Payments";
+import axios from "axios";
+import { createCharge } from "../api/stripeTransactions";
+
+const PUBLIC_KEY =
+  "pk_test_51LRr4ICTs4LHmWdKetBblV6Tj1fGjN7v6gzO12NdoFqdqF2mx8ALhe9johK9aa3Qj0NUh0ZEFnNSd8Y0lgAweM0h00JfpbZ56h";
 
 const styles = {
   activeButton:
@@ -38,9 +46,67 @@ const columns = [
   // },
 ];
 
+let stripePromise;
+
+const getStripe = () => {
+  if (!stripePromise) {
+    stripePromise = loadStripe(
+      "pk_test_51LRr4ICTs4LHmWdKetBblV6Tj1fGjN7v6gzO12NdoFqdqF2mx8ALhe9johK9aa3Qj0NUh0ZEFnNSd8Y0lgAweM0h00JfpbZ56h"
+    );
+  }
+  return stripePromise;
+};
+
 export const Sales = () => {
   const [allTransations, setAllTransactions] = useState([]);
+  const [serviceSelected, setServiceSelected] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [stripeError, setStripeError] = useState(false);
   const [rows, setRows] = useState([]);
+  const [allUsers, setAllUsers] = useState([]);
+
+  // All serivices
+  const updateMCS150 = {
+    price: "price_1LdlcACTs4LHmWdKYpqwkI9i",
+    quantity: 1,
+  };
+
+  const checkoutOptions = {
+    lineItems: [updateMCS150],
+    mode: "payment",
+    successUrl: `${window.location.origin}/success`,
+    cancelUrl: `${window.location.origin}/sales`,
+  };
+
+  const redirectToCheckout = async () => {
+    const stripe = await getStripe();
+    stripe.paymentLinks.create(checkoutOptions).then((res) => {
+      console.log(res);
+      console.log("Thanks");
+    });
+    // if (result) console.log(result);
+    // console.log(error);
+  };
+
+  // const updateMCS150 = async () => {};
+
+  // const redirectToCheckout = async () => {
+  //   // setLoading(true);
+  //   // console.log("redirectToCheckout");
+  //   // const promise = await loadStripe(PUBLIC_KEY);
+
+  //   const response = await createCharge("100", "TEST");
+  //   console.log("Got a response: ", response);
+
+  //   // promise.redirectToCheckout(checkoutOptions).then((res) => {
+  //   //   console.log("Works");
+  //   //   console.log(res);
+  //   // });
+  //   // console.log("Stripe checkout error", error);
+
+  //   // if (error) setStripeError(error.message);
+  //   setLoading(false);
+  // };
 
   const fetchAllTransactions = async () => {
     const response = await getAllStripeTransactions();
@@ -75,22 +141,38 @@ export const Sales = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex items-center justify-center">
-      {/* Sales Form */}
-      <div className="w-full mx-10 px-4 py-2 border border-gray-500 shadow-md rounded-lg flex flex-col">
-        {/* New Sale Button - Position in the top right corner of the container. This button will be a dropdown menu of different services to purchase.*/}
-        <div className="w-auto flex justify-end mb-2">
-          <a
-            href="https://buy.stripe.com/test_8wMcNVgsucw6aL6eUU"
-            target="_blank"
-            className={`px-2 py-1 btn ${styles.activeButton}`}
-          >
-            New Sale
-          </a>
-        </div>
+    <div className="w-full h-full flex items-center justify-center flex-col">
+      <div className="w-full  px-4 py-2 rounded-lg flex flex-col">
         <div className="w-full h-96">
           <DataGrid className="" rows={rows} columns={columns} pageSize={15} />
         </div>
+        {/* <div className="w-auto flex mb-2">
+          <div class="dropdown dropdown-hover dropdown-bottom">
+            <label tabindex="0" class="btn m-1">
+              Please select a service
+            </label>
+            <ul
+              tabindex="0"
+              class=" dropdown-content flex flex-col menu p-2 space-y-4 shadowrounded-box "
+            >
+              <button className="btn bg-red-400" onClick={redirectToCheckout}>
+                <a>Update/MCS-150</a>
+              </button>
+              <button className="btn bg-red-400" onClick={redirectToCheckout}>
+                <a>UCR Registration</a>
+              </button>
+            </ul>
+          </div>
+        </div> */}
+      </div>
+      <div className="w-full flex ml-10 space-x-4">
+        <button onClick={redirectToCheckout} className="btn">
+          Update/MCS-150
+        </button>
+        <button className="btn">UCR (0-2)</button>
+        <button className="btn">UCR (3-5)</button>
+        <button className="btn">UCR (6-20)</button>
+        <button className="btn">UCR (21-100)</button>
       </div>
     </div>
   );
