@@ -39,7 +39,6 @@ const promise = loadStripe(
 const frontendApi = process.env.REACT_APP_CLERK_FRONTEND_API;
 
 function App() {
-  // const { user } = useUser();
   const navigate = useNavigate();
   return (
     <ClerkProvider frontendApi={frontendApi} navigate={(to) => navigate(to)}>

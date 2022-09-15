@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getPastDue } from "../api/companySnapshot";
+import { getUCRDue } from "../api/companySnapshot";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 
@@ -45,7 +45,7 @@ const months = [
   "December",
 ];
 
-const PastDueGrid = () => {
+const UCRDueGrid = () => {
   const [allCompanies, setAllCompanies] = useState();
   const [rows, setRows] = useState([]);
   const [searched, setSearched] = useState("");
@@ -53,40 +53,30 @@ const PastDueGrid = () => {
   const date = new Date();
   const currentMonth = date.getMonth();
 
-  const fetchAllCompanies = async () => {
-    const response = await getPastDue();
-    if (response) {
-      console.log(response);
-      setAllCompanies(response);
-      const allRows = response?.map((company) => {
-        return {
-          id: company?._id,
-          usdot: company?.usdot,
-          legal_name: company?.legal_name,
-          dba_name: company?.dba_name,
-          email: company?.email,
-          address: company?.address,
-          mcs_150_form_date: company?.mcs_150_form_date,
-          operating_status: company?.operating_status,
-        };
-      });
-      setRows(allRows);
-    }
-  };
-
-  const requestSearch = (searchedVal) => {
-    const filteredRows = rows.filter((company) => {
-      console.log(searchedVal);
-      return company?.dba_name
-        .toLowerCase()
-        .includes(searchedVal.toLowerCase());
-    });
-    setRows(filteredRows);
-    setSearched(searchedVal);
+  const fetchAllUCRDueCompanies = async () => {
+    const response = await getUCRDue();
+    console.log(response);
+    // if (response) {
+    //   console.log(response);
+    //   setAllCompanies(response);
+    //   const allRows = response?.map((company) => {
+    //     return {
+    //       id: company?._id,
+    //       usdot: company?.usdot,
+    //       legal_name: company?.legal_name,
+    //       dba_name: company?.dba_name,
+    //       email: company?.email,
+    //       address: company?.address,
+    //       mcs_150_form_date: company?.mcs_150_form_date,
+    //       operating_status: company?.operating_status,
+    //     };
+    //   });
+    //   setRows(allRows);
+    // }
   };
 
   useEffect(() => {
-    fetchAllCompanies();
+    fetchAllUCRDueCompanies();
   }, []);
 
   return (
@@ -113,4 +103,4 @@ const PastDueGrid = () => {
   );
 };
 
-export default PastDueGrid;
+export default UCRDueGrid;

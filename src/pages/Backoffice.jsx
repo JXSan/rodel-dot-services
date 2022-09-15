@@ -6,12 +6,17 @@ import Search from "./Search";
 import { Routes, Route } from "react-router-dom";
 import Success from "./Success";
 import CompanyDetails from "./CompanyDetails";
+import Dashboard from "./Dashboard";
+import AllCompanies from "./AllCompanies";
+import CurrentlyDue from "./CurrentlyDue";
+import PastDue from "./PastDue";
+import UCR from "./UCR";
+import UCRDue from "./UCRDue";
 
 const Backoffice = () => {
   return (
     <div className="h-screen w-screen flex">
-      {/* Sidebar */}
-      <div className="w-80 flex h-full max-h-full bg-red-600">
+      <div className="flex h-full max-h-full">
         <Sidebar />
       </div>
       <div className="w-full h-full items-center justify-center flex flex-col bg-slate-50">
@@ -24,6 +29,12 @@ const Backoffice = () => {
           <Route path="/users" element={<Users />}></Route>
           <Route path="/sales" element={<Sales />}></Route>
           <Route path="/success" element={<Success />}></Route>
+          <Route path="/dashboard" element={<Dashboard />}></Route>
+          <Route path="/allcompanies" element={<AllCompanies />}></Route>
+          <Route path="/currentlyDue" element={<CurrentlyDue />}></Route>
+          <Route path="/pastDue" element={<PastDue />}></Route>
+          <Route path="/ucr" element={<UCR />}></Route>
+          <Route path="/ucrdue" element={<UCRDue />}></Route>
         </Routes>
       </div>
       {/* Routes */}

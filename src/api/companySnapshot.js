@@ -49,7 +49,14 @@ const getCompany = async (dotNumber) => {
   if (response) return response.data.results;
 };
 
-const getUCRDue = async () => {};
+const getUCRDue = async () => {
+  const response = await axios
+    .get("https://rodel-dot-services.herokuapp.com/api/companysnapshot/ucrdue")
+    .catch((err) => {
+      console.log(err);
+    });
+  if (response) return response.data.results;
+};
 
 export {
   getAllCompanies,

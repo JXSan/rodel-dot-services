@@ -14,6 +14,8 @@ const Users = () => {
     setAllUsers(users.results);
   };
 
+  console.log(user);
+
   useEffect(() => {
     // fetchAllUsers();
   }, []);

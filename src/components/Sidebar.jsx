@@ -21,7 +21,7 @@ const Sidebar = () => {
   const { user } = useUser();
   return (
     <div className={styles.wrapper}>
-      <img src={Logo} alt="" />
+      <img className="h-40" src={Logo} alt="" />
       <hr className="w-full" />
       <div className={styles.menuOptionsWrapper}>
         <ul className="flex-col min-w-full flex list-none space-y-4">
@@ -77,12 +77,22 @@ const Sidebar = () => {
           </li>
           <li className="rounded-lg ">
             <NavLink
+              to="/ucrdue"
+              className={({ isActive }) =>
+                isActive ? styles.activeButton : styles.regularButton
+              }
+            >
+              UCR
+            </NavLink>
+          </li>
+          <li className="rounded-lg ">
+            <NavLink
               to="/sales"
               className={({ isActive }) =>
                 isActive ? styles.activeButton : styles.regularButton
               }
             >
-              Sales
+              My Sales
             </NavLink>
           </li>
           {user.unsafeMetadata.isAdmin && (

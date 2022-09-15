@@ -9,11 +9,12 @@ const getAllStripeTransactions = async () => {
   if (response) return response.data;
 };
 
-const createCharge = async (amount, description) => {
+const createCharge = async (user, productId) => {
   const response = await axios
-    .post("https://rodel-dot-services.herokuapp.com/api/stripe/payment", {
-      amount: amount,
-      description: description,
+    // .post("https://rodel-dot-services.herokuapp.com/api/stripe/payment", {
+    .post("http://localhost:8081/api/stripe/payment", {
+      productId: productId,
+      user: user.user,
     })
     .catch((err) => {
       console.log(err);

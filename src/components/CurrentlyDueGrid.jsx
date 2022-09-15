@@ -4,6 +4,22 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 
 const columns = [
+  {
+    field: "details",
+    headerName: "DETAILS",
+    flex: 1,
+    minWidth: 100,
+    renderCell: (params) => {
+      return (
+        <Link
+          className="p-2 rounded-md bg-gray-100 shadow-lg hover:bg-gray-500"
+          to={`/companydetails/${params.id}`}
+        >
+          Details
+        </Link>
+      );
+    },
+  },
   { field: "usdot", sortable: true, headerName: "USDOT" },
   { field: "legal_name", minWidth: 300, headerName: "LEGAL NAME", flex: 1 },
   {
@@ -25,21 +41,6 @@ const columns = [
     minWidth: 200,
     headerName: "OPERATING STATUS",
     flex: 1,
-  },
-  {
-    field: "details",
-    headerName: "DETAILS",
-    flex: 1,
-    renderCell: (params) => {
-      return (
-        <Link
-          className="p-2 rounded-md bg-gray-100 shadow-lg hover:bg-gray-500"
-          to={`/companydetails/${params.id}`}
-        >
-          Details
-        </Link>
-      );
-    },
   },
 ];
 
@@ -95,13 +96,15 @@ const CurrentlyDueGrid = () => {
       <div className="p-4 rounded-lg flex items-center justify-center">
         <h1 className="text-2xl mb-2">{`Currently Due The Month Of ${months[currentMonth]}`}</h1>
       </div>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={15}
-        rowsPerPageOptions={[20]}
-        disableSelectionOnClick
-      />
+      <div className="w-full h-[70vh]">
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={15}
+          rowsPerPageOptions={[20]}
+          disableSelectionOnClick
+        />
+      </div>
     </div>
   );
 };
