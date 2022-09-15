@@ -4,7 +4,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 
 const columns = [
-  // { field: "id", sortable: true, headerName: "ID", flex: 1 },
   {
     field: "details",
     headerName: "DETAILS",
@@ -25,9 +24,9 @@ const columns = [
   { field: "legal_name", headerName: "LEGAL NAME", flex: 1 },
   { field: "dba_name", headerName: "DBA NAME", flex: 1 },
   { field: "email", headerName: "EMAIL", flex: 1 },
-  { field: "address", headerName: "ADDRESS", flex: 1 },
   { field: "mcs_150_form_date", headerName: "MCS 150 FORM DATE", flex: 1 },
   { field: "operating_status", headerName: "OPERATING STATUS", flex: 1 },
+  { field: "carrier_operation", headerName: "CARRIER OPERATION", flex: 1 },
 ];
 
 const months = [
@@ -55,24 +54,23 @@ const UCRDueGrid = () => {
 
   const fetchAllUCRDueCompanies = async () => {
     const response = await getUCRDue();
-    console.log(response);
-    // if (response) {
-    //   console.log(response);
-    //   setAllCompanies(response);
-    //   const allRows = response?.map((company) => {
-    //     return {
-    //       id: company?._id,
-    //       usdot: company?.usdot,
-    //       legal_name: company?.legal_name,
-    //       dba_name: company?.dba_name,
-    //       email: company?.email,
-    //       address: company?.address,
-    //       mcs_150_form_date: company?.mcs_150_form_date,
-    //       operating_status: company?.operating_status,
-    //     };
-    //   });
-    //   setRows(allRows);
-    // }
+    if (response) {
+      setAllCompanies(response);
+      const allRows = response?.map((company) => {
+        return {
+          id: company?._id,
+          usdot: company?.usdot,
+          legal_name: company?.legal_name,
+          dba_name: company?.dba_name,
+          email: company?.email,
+          mcs_150_form_date: company?.mcs_150_form_date,
+          operating_status: company?.operating_status,
+          carrier_operation: company?.carrier_operation,
+        };
+      });
+      console.log(allRows);
+      setRows(allRows);
+    }
   };
 
   useEffect(() => {
@@ -82,7 +80,7 @@ const UCRDueGrid = () => {
   return (
     <div style={{ height: 700, width: "80%" }}>
       <div className="p-4 rounded-lg flex items-center justify-center">
-        <h1 className="text-2xl mb-2">{`Past Due Companies`}</h1>
+        <h1 className="text-2xl mb-2">{`UCR Registration Due`}</h1>
       </div>
       {/* <input
         className="text-black p-4 bg-red-100 w-full h-10"
