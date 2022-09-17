@@ -17,34 +17,37 @@ import { useUser } from "@clerk/clerk-react";
 
 const Backoffice = () => {
   const user = useUser();
+  console.log(user.user.unsafeMetadata.status);
   const isAdmin = user.user?.unsafeMetadata?.isAdmin;
-  return (
-    <div className="h-screen w-screen flex">
-      <div className="flex h-full max-h-full">
-        <Sidebar />
+  if (user.user.unsafeMetadata.status === "active") {
+    return (
+      <div className="h-screen w-screen flex">
+        <div className="flex h-full max-h-full">
+          <Sidebar />
+        </div>
+        <div className="w-full h-full items-center justify-center flex flex-col bg-slate-50">
+          <Routes>
+            <Route path="/" element={<Search />}></Route>
+            <Route
+              path="/companydetails/:id"
+              element={<CompanyDetails />}
+            ></Route>
+            <Route path="/users" element={<Users />}></Route>
+            <Route path="/sales" element={<Sales />}></Route>
+            <Route path="/success" element={<Success />}></Route>
+            <Route path="/dashboard" element={<Dashboard />}></Route>
+            <Route path="/allcompanies" element={<AllCompanies />}></Route>
+            <Route path="/currentlyDue" element={<CurrentlyDue />}></Route>
+            <Route path="/pastDue" element={<PastDue />}></Route>
+            <Route path="/ucr" element={<UCR />}></Route>
+            <Route path="/ucrdue" element={<UCRDue />}></Route>
+            {isAdmin && <Route path="/allsales" element={<AllSales />}></Route>}
+          </Routes>
+        </div>
+        {/* Routes */}
       </div>
-      <div className="w-full h-full items-center justify-center flex flex-col bg-slate-50">
-        <Routes>
-          <Route path="/" element={<Search />}></Route>
-          <Route
-            path="/companydetails/:id"
-            element={<CompanyDetails />}
-          ></Route>
-          <Route path="/users" element={<Users />}></Route>
-          <Route path="/sales" element={<Sales />}></Route>
-          <Route path="/success" element={<Success />}></Route>
-          <Route path="/dashboard" element={<Dashboard />}></Route>
-          <Route path="/allcompanies" element={<AllCompanies />}></Route>
-          <Route path="/currentlyDue" element={<CurrentlyDue />}></Route>
-          <Route path="/pastDue" element={<PastDue />}></Route>
-          <Route path="/ucr" element={<UCR />}></Route>
-          <Route path="/ucrdue" element={<UCRDue />}></Route>
-          {isAdmin && <Route path="/allsales" element={<AllSales />}></Route>}
-        </Routes>
-      </div>
-      {/* Routes */}
-    </div>
-  );
+    );
+  }
 };
 
 export default Backoffice;
