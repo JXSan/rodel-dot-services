@@ -219,15 +219,25 @@ const CompanyDetails = () => {
                       >
                         S.A.F.E.R
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          handleBlacklistButton(item?.usdot);
-                        }}
-                        className="text-sm text-white p-2 bg-black rounded-lg"
-                      >
-                        BLACKLIST
-                      </button>
+                      {item.blacklisted == true && (
+                        <button
+                          type="button"
+                          className="text-sm text-white p-2 bg-black rounded-lg"
+                        >
+                          UN-BLACKLIST
+                        </button>
+                      )}
+                      {!item.blacklisted && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleBlacklistButton(item?.usdot);
+                          }}
+                          className="text-sm text-white p-2 bg-black rounded-lg"
+                        >
+                          BLACKLIST
+                        </button>
+                      )}
                     </div>
                     <hr />
 
@@ -246,6 +256,11 @@ const CompanyDetails = () => {
                       {isUCRDue && (
                         <label className="text-sm text-center font-bold text-black px-1 bg-purple-300 rounded-lg">
                           UCR Registration
+                        </label>
+                      )}
+                      {item.blacklisted && (
+                        <label className="text-sm text-white text-center font-bold px-1 bg-black rounded-lg">
+                          Blacklisted
                         </label>
                       )}
                     </div>
