@@ -30,23 +30,19 @@ const UCR = () => {
   const [years, setYears] = useState([]);
   const [cost, setCost] = useState(0);
   const [formData, setFormData] = useState({});
+  const [selectedPaymentId, setPaymentId] = useState("");
 
   const handleChange = (event) => {
     const id = event.target.id;
-    if (id === "yearsNeedingRegistration")
+    if (id === "yearsNeedingRegistration") {
       setCost(fleetMapping[event.target.value].amount);
+      setPaymentId(fleetMapping[event.target.value].paymentId);
+    }
 
     setFormData({ ...formData, [id]: event.target.value });
   };
 
-  const redirectToCheckout = async (productId) => {
-    const { paymentURL } = await createCharge(
-      user,
-      productId,
-      `UCR Registration: ${formData.yearsNeedingRegistration}`
-    );
-    window.location.href = paymentURL;
-  };
+  const redirectToCheckout = async (productId) => {};
 
   const handleFleetBracket = async (event) => {
     event.preventDefault();
@@ -57,8 +53,15 @@ const UCR = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Hello");
-    console.log(formData);
+    if (formData.yearsNeedingRegistration) {
+      const { paymentURL } = await createCharge(
+        user,
+        selectedPaymentId,
+        `UCR Registration: ${formData.yearsNeedingRegistration}`
+      );
+      window.open(paymentURL, "_blank");
+    }
+
     // Process payment through stripe
     // await redirectToCheckout(formData);
 

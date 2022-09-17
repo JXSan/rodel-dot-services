@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { getCompanyById, blacklistCompany } from "../api/companySnapshot";
 import NotesHistory from "../components/Notes/NotesHistory";
 import { createCharge } from "../api/stripeTransactions";
@@ -14,6 +14,7 @@ const CompanyDetails = () => {
   const [isPastDue, setIsPastDue] = useState(false);
   const [isUCRDue, setIsUCRDue] = useState(false);
   const date = new Date();
+  const navigate = useNavigate();
 
   const MCS150_STRIPE_PRODUCT_ID = "price_1LiqTaBoa9DkGR7IvDno57bI";
 
@@ -112,7 +113,9 @@ const CompanyDetails = () => {
     window.open(paymentURL, "_blank");
   };
 
-  const handleUCRUpdate = async () => {};
+  const handleUCRUpdate = async () => {
+    navigate("/ucr");
+  };
 
   useEffect(() => {
     fetchCompany();
@@ -134,7 +137,10 @@ const CompanyDetails = () => {
           >
             UPDATE MCS-150
           </button>
-          <button className="p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400">
+          <button
+            onClick={handleUCRUpdate}
+            className="p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400"
+          >
             UCR REGISTRATION
           </button>
         </div>
