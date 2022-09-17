@@ -16,7 +16,7 @@ const CompanyDetails = () => {
   const date = new Date();
   const navigate = useNavigate();
 
-  const MCS150_STRIPE_PRODUCT_ID = "price_1LiqTaBoa9DkGR7IvDno57bI";
+  const MCS150_STRIPE_PRODUCT_ID = "price_1LiqRnBoa9DkGR7IEkJOr3q8";
 
   const checkIsCurrentlyDue = (company) => {
     company = company[0];
@@ -98,6 +98,10 @@ const CompanyDetails = () => {
       `https://safer.fmcsa.dot.gov/query.asp?query_type=queryCarrierSnapshot&query_param=USDOT&query_string=${usdot}`,
       "_blank"
     );
+  };
+
+  const handleUCRButton = async (usdot) => {
+    window.open(`https://www.ucr.gov/enforcement/`, "_blank");
   };
 
   const handleBlacklistButton = async (usdot) => {
@@ -224,6 +228,15 @@ const CompanyDetails = () => {
                         className="text-sm p-2 text-white bg-orange-500/80 rounded-lg"
                       >
                         S.A.F.E.R
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          handleUCRButton(item?.usdot);
+                        }}
+                        className="text-sm p-2 text-black bg-violet-400 rounded-lg"
+                      >
+                        UCR
                       </button>
                       {item.blacklisted == true && (
                         <button
