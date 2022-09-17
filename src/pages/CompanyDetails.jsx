@@ -10,6 +10,7 @@ const CompanyDetails = () => {
   const fetchCompany = async () => {
     const response = await getCompanyById(id);
     if (response) setCompany(response);
+    console.log(response);
   };
 
   useEffect(() => {
@@ -29,31 +30,31 @@ const CompanyDetails = () => {
                 <div className="flex flex-col w-full  space-y-2 ">
                   <div className=" rounded-lg">
                     <div className="text-sm text-gray-500">LEGAL NAME</div>
-                    <div className="p-1 rounded-lg  text-black bg-gray-200">
+                    <div className="p-2 rounded-lg  text-black bg-gray-200">
                       {item?.legal_name ? item.legal_name : "Not available"}
                     </div>
                   </div>
                   <div className=" rounded-lg">
                     <div className="text-sm text-gray-500">DBA NAME</div>
-                    <div className="p-1 rounded-lg  text-black bg-gray-200">
+                    <div className="p-2 rounded-lg  text-black bg-gray-200">
                       {item?.dba_name ? item.dba_name : "Not available"}
                     </div>
                   </div>
                   <div className=" rounded-lg">
                     <div className="text-sm text-gray-500">EMAIL</div>
-                    <div className="p-1 rounded-lg  text-black bg-gray-200">
+                    <div className="p-2 rounded-lg  text-black bg-gray-200">
                       {item?.email ? item.email : "Not available."}
                     </div>
                   </div>
                   <div className=" rounded-lg">
                     <div className="text-sm text-gray-500">PHONE</div>
-                    <div className="p-1 rounded-lg  text-black bg-gray-200">
+                    <div className="p-2 rounded-lg  text-black bg-gray-200">
                       {item?.phone ? item.phone : "Not available."}
                     </div>
                   </div>
                   <div className=" rounded-lg">
                     <div className="text-sm text-gray-500">USDOT</div>
-                    <div className="p-1 rounded-lg  text-black bg-gray-200">
+                    <div className="p-2 rounded-lg  text-black bg-gray-200">
                       {item?.usdot}
                     </div>
                   </div>
@@ -61,7 +62,7 @@ const CompanyDetails = () => {
                     <div className="text-sm text-gray-500">
                       MCS150 FORM DATE
                     </div>
-                    <div className="p-1 rounded-lg  text-black bg-gray-200">
+                    <div className="p-2 rounded-lg  text-black bg-gray-200">
                       {item?.mcs_150_form_date
                         ? item.mcs_150_form_date
                         : "Not available"}
@@ -71,9 +72,17 @@ const CompanyDetails = () => {
                     <div className="text-sm text-gray-500">
                       OPERATING STATUS
                     </div>
-                    <div className="p-1 rounded-lg  text-black bg-gray-200">
+                    <div className="p-2 rounded-lg  text-black bg-gray-200">
                       {item?.operating_status
                         ? item.operating_status
+                        : "Not available"}
+                    </div>
+                  </div>
+                  <div className=" rounded-lg">
+                    <div className="text-sm text-gray-500">MC MX FF Number</div>
+                    <div className="p-2 rounded-lg  text-black bg-gray-200">
+                      {item?.mc_mx_ff_numbers
+                        ? item.mc_mx_ff_numbers
                         : "Not available"}
                     </div>
                   </div>

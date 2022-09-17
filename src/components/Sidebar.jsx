@@ -19,6 +19,7 @@ const styles = {
 
 const Sidebar = () => {
   const { user } = useUser();
+  const isAdmin = user?.unsafeMetadata?.isAdmin;
   return (
     <div className={styles.wrapper}>
       <img className="h-40" src={Logo} alt="" />
@@ -95,7 +96,19 @@ const Sidebar = () => {
               My Sales
             </NavLink>
           </li>
-          {user.unsafeMetadata.isAdmin && (
+          {isAdmin && (
+            <li className="rounded-lg ">
+              <NavLink
+                to="/allsales"
+                className={({ isActive }) =>
+                  isActive ? styles.activeButton : styles.regularButton
+                }
+              >
+                All Sales
+              </NavLink>
+            </li>
+          )}
+          {isAdmin && (
             <li className="rounded-lg ">
               <NavLink
                 to="/users"

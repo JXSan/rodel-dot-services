@@ -12,8 +12,12 @@ import CurrentlyDue from "./CurrentlyDue";
 import PastDue from "./PastDue";
 import UCR from "./UCR";
 import UCRDue from "./UCRDue";
+import AllSales from "./AllSales";
+import { useUser } from "@clerk/clerk-react";
 
 const Backoffice = () => {
+  const user = useUser();
+  const isAdmin = user.user?.unsafeMetadata?.isAdmin;
   return (
     <div className="h-screen w-screen flex">
       <div className="flex h-full max-h-full">
@@ -35,6 +39,7 @@ const Backoffice = () => {
           <Route path="/pastDue" element={<PastDue />}></Route>
           <Route path="/ucr" element={<UCR />}></Route>
           <Route path="/ucrdue" element={<UCRDue />}></Route>
+          {isAdmin && <Route path="/allsales" element={<AllSales />}></Route>}
         </Routes>
       </div>
       {/* Routes */}

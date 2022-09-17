@@ -33,7 +33,7 @@ const styles = {
 };
 
 const promise = loadStripe(
-  "pk_test_51LRr4ICTs4LHmWdKetBblV6Tj1fGjN7v6gzO12NdoFqdqF2mx8ALhe9johK9aa3Qj0NUh0ZEFnNSd8Y0lgAweM0h00JfpbZ56h"
+  "pk_test_51LeNhcBoa9DkGR7IafhBYHihQ87SRbsylWCr7GTcG8MWfUDOVRh73FeBsJowSsVc6NgyrXe5HCnrw48SdMcvssm500H3zPrjAx"
 );
 
 const frontendApi = process.env.REACT_APP_CLERK_FRONTEND_API;
