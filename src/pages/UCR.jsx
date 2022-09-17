@@ -1,6 +1,81 @@
 import React from "react";
+import { useState, useEffect } from "react";
+import { useUser } from "@clerk/clerk-react";
+import { createCharge } from "../api/stripeTransactions";
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const fleetMapping = {
+  "0-2": { amount: 145, paymentId: "price_1LiqTaBoa9DkGR7IvDno57bI" },
+  "3-5": { amount: 299, paymentId: "price_1LiqTaBoa9DkGR7IIN4xHUon" },
+  "6-20": { amount: 549, paymentId: "price_1LiqTaBoa9DkGR7IKKKwtF3h" },
+  "21-100": { amount: 1429, paymentId: "price_1LiqTaBoa9DkGR7Iu1qdB7e1" },
+};
 
 const UCR = () => {
+  const user = useUser();
+  const [years, setYears] = useState([]);
+  const [cost, setCost] = useState(0);
+  const [formData, setFormData] = useState({});
+
+  const handleChange = (event) => {
+    const id = event.target.id;
+    if (id === "yearsNeedingRegistration")
+      setCost(fleetMapping[event.target.value].amount);
+
+    setFormData({ ...formData, [id]: event.target.value });
+  };
+
+  const redirectToCheckout = async (productId) => {
+    const { paymentURL } = await createCharge(
+      user,
+      productId,
+      `UCR Registration: ${formData.yearsNeedingRegistration}`
+    );
+    window.location.href = paymentURL;
+  };
+
+  const handleFleetBracket = async (event) => {
+    event.preventDefault();
+    const index = event.target.value;
+    const amount = fleetMapping[index].amount;
+    setCost(amount);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("Hello");
+    console.log(formData);
+    // Process payment through stripe
+    // await redirectToCheckout(formData);
+
+    // Get the payment url from the backend and navigate there
+  };
+
+  useEffect(() => {
+    const date = new Date();
+    const monthNumber = date.getMonth();
+    const month = months[monthNumber];
+    const currentYear = date.getFullYear();
+    if (monthNumber + 1 >= 10) {
+      console.log("Enter");
+      setYears([currentYear, currentYear + 1]);
+    } else setYears([currentYear - 1, currentYear]);
+  }, []);
+
   return (
     <div className="w-full">
       <div className="w-full md:w-96 md:max-w-full mx-auto flex flex-col items-center space-y-4">
@@ -8,11 +83,12 @@ const UCR = () => {
           <p>UCR Registration</p>
         </div>
         <div className="p-6 border border-gray-300 sm:rounded-md w-full">
-          <form method="POST" action="https://herotofu.com/start">
+          <form>
             <label className="block mb-6">
               <span className="text-gray-700">Years Needing Registration</span>
               <select
-                name="present"
+                onChange={handleChange}
+                id="years"
                 className="
             block
             w-full
@@ -28,17 +104,21 @@ const UCR = () => {
             focus:ring-opacity-50
           "
               >
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+                <option hidden>Select an option</option>
+                {years?.map((item, index) => {
+                  return (
+                    <option value={item} key={index}>
+                      {item}
+                    </option>
+                  );
+                })}
               </select>
             </label>
             <label className="block mb-6">
               <span className="text-gray-700">Size of Fleet Bracket?</span>
               <select
-                name="present"
+                onChange={handleChange}
+                id="yearsNeedingRegistration"
                 className="
             block
             w-full
@@ -54,18 +134,51 @@ const UCR = () => {
             focus:ring-opacity-50
           "
               >
-                <option>0-2</option>
-                <option>3-5</option>
-                <option>6-20</option>
-                <option>21-100</option>
-                <option>101-1000</option>
-                <option>1000+</option>
+                <option hidden>Select an option</option>
+                <option onChange={handleChange} value={`0-2`}>
+                  0-2
+                </option>
+                <option onChange={handleChange} value={`3-5`}>
+                  3-5
+                </option>
+                <option onChange={handleChange} value={`6-20`}>
+                  6-20
+                </option>
+                <option onChange={handleChange} value={`21-100`}>
+                  21-100
+                </option>
               </select>
+            </label>
+            <label className="block mb-6">
+              <span className="text-gray-700"># Of Vehicles</span>
+              <input
+                id="vehicles"
+                type="number"
+                onChange={handleChange}
+                value={formData.vehicles}
+                className="
+            block
+            w-full
+            mt-1
+            px-2
+            p-1
+            border-gray-300
+            rounded-md
+            shadow-sm
+            focus:border-indigo-300
+            focus:ring
+            focus:ring-indigo-200
+            focus:ring-opacity-50
+          "
+                placeholder="0"
+              />
             </label>
             <label className="block mb-6">
               <span className="text-gray-700">Classification</span>
               <select
-                name="present"
+                id="classification"
+                onChange={handleChange}
+                value={formData.classification}
                 className="
             block
             w-full
@@ -81,6 +194,7 @@ const UCR = () => {
             focus:ring-opacity-50
           "
               >
+                <option hidden>Select an option</option>
                 <option>Motor Carrier</option>
                 <option>Motor Private Carrier</option>
                 <option>Broker</option>
@@ -89,9 +203,10 @@ const UCR = () => {
               </select>
             </label>
             <label className="block mb-6">
-              <span className="text-gray-700">Email address</span>
+              <span className="text-gray-700">Email Address</span>
               <input
-                name="email"
+                id="email"
+                onChange={handleChange}
                 type="email"
                 className="
             block
@@ -175,8 +290,15 @@ const UCR = () => {
             </div> */}
           </form>
         </div>
-        <div className="">
-          <button className="p-2 rounded-md drop-shadow-md bg-blue-400 hover:bg-blue-500 text-white font-sans">
+        <div className="flex flex-col space-y-2">
+          <div className="bg-gray-200 rounded p-1">
+            <p>{`Total Cost: $${cost}`}</p>
+          </div>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="p-2 rounded-md drop-shadow-md bg-blue-400 hover:bg-blue-500 text-white font-sans"
+          >
             Confirm Payment
           </button>
         </div>

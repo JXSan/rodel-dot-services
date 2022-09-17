@@ -58,6 +58,15 @@ const getUCRDue = async () => {
   if (response) return response.data.results;
 };
 
+const blacklistCompany = async (usdot) => {
+  const response = await axios
+    .put(`http://localhost:8081/api/companysnapshot/blacklist/${usdot}`)
+    .catch((err) => {
+      console.log(err);
+    });
+  if (response) return response.data.results;
+};
+
 export {
   getAllCompanies,
   getCurrentCompanies,
@@ -65,4 +74,5 @@ export {
   getUCRDue,
   getCompany,
   getCompanyById,
+  blacklistCompany,
 };
