@@ -54,7 +54,6 @@ export const Sales = () => {
   ];
 
   const redirectToCheckout = async () => {
-    // const stripe = await getStripe();
     const { paymentURL } = await createCharge(user, MCS150_STRIPE_PRODUCT_ID);
     window.location.href = paymentURL;
   };

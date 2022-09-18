@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useUser } from "@clerk/clerk-react";
 import { createCharge } from "../api/stripeTransactions";
+import { useNavigate } from "react-router-dom";
 
 const months = [
   "January",
@@ -27,6 +28,7 @@ const fleetMapping = {
 
 const UCR = () => {
   const user = useUser();
+  const navigate = useNavigate();
   const [years, setYears] = useState([]);
   const [cost, setCost] = useState(0);
   const [formData, setFormData] = useState({});
@@ -57,9 +59,11 @@ const UCR = () => {
       const { paymentURL } = await createCharge(
         user,
         selectedPaymentId,
-        `UCR Registration: ${formData.yearsNeedingRegistration}`
+        `UCR Registration: ${formData.yearsNeedingRegistration}`,
+        "UCR Registration"
       );
       window.open(paymentURL, "_blank");
+      navigate("/sales");
     }
 
     // Process payment through stripe

@@ -38,7 +38,7 @@ const Backoffice = () => {
             <Route path="/allcompanies" element={<AllCompanies />}></Route>
             <Route path="/currentlyDue" element={<CurrentlyDue />}></Route>
             <Route path="/pastDue" element={<PastDue />}></Route>
-            <Route path="/ucr" element={<UCR />}></Route>
+            <Route path="/ucr/:id" element={<UCR />}></Route>
             <Route path="/ucrdue" element={<UCRDue />}></Route>
             {isAdmin && <Route path="/allsales" element={<AllSales />}></Route>}
           </Routes>

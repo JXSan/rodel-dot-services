@@ -186,13 +186,14 @@ const CompanyDetails = () => {
     const { paymentURL } = await createCharge(
       user,
       MCS150_STRIPE_PRODUCT_ID,
-      id
+      id,
+      "MCS150 Registration/Update"
     );
     window.open(paymentURL, "_blank");
   };
 
   const handleUCRUpdate = async () => {
-    navigate("/ucr");
+    navigate(`/ucr/${id}`);
   };
 
   useEffect(() => {
@@ -203,22 +204,20 @@ const CompanyDetails = () => {
   return (
     <div className="w-full h-full flex flex-col items-center">
       {/* Please select a service */}
-      <div className="bg-gray-400 rounded-lg drop-shadow-md mt-10 w-auto flex items-center justify-center space-x-4 p-2">
+      <div className="rounded-lg drop-shadow-sm mt-10 w-auto flex flex-col items-center justify-center space-x-4 p-2">
         <div>
-          <p className="text-xl font-sans font-normal">
-            Please select a service:{" "}
-          </p>
+          <p className="text-xl font-sans font-bold mb-2">Services</p>
         </div>
         <div className="flex space-x-4">
           <button
             onClick={handleMCSUpdate}
-            className="p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400"
+            className="p-1 bg-orange-400 shadow-xl text-white font-light rounded drop-shadow-md hover:bg-orange-500"
           >
             UPDATE MCS-150
           </button>
           <button
             onClick={handleUCRUpdate}
-            className="p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400"
+            className="p-1 bg-orange-400 shadow-xl text-white font-light rounded drop-shadow-md hover:bg-orange-500"
           >
             UCR REGISTRATION
           </button>
