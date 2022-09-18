@@ -36,7 +36,7 @@ const Sidebar = () => {
               Search
             </NavLink>
           </li>
-          <li className="rounded-lg">
+          {/* <li className="rounded-lg">
             <NavLink
               to="/dashboard"
               className={({ isActive }) =>
@@ -45,7 +45,7 @@ const Sidebar = () => {
             >
               Dashboard
             </NavLink>
-          </li>
+          </li> */}
           <li className="rounded-lg">
             <NavLink
               to="/allcompanies"
@@ -108,7 +108,7 @@ const Sidebar = () => {
               </NavLink>
             </li>
           )}
-          {isAdmin && (
+          {/* {isAdmin && (
             <li className="rounded-lg ">
               <NavLink
                 to="/users"
@@ -119,7 +119,7 @@ const Sidebar = () => {
                 Users
               </NavLink>
             </li>
-          )}
+          )} */}
         </ul>
       </div>
 
