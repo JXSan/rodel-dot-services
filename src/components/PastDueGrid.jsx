@@ -64,7 +64,9 @@ const PastDueGrid = () => {
           dba_name: company?.dba_name,
           email: company?.email,
           address: company?.address,
-          mcs_150_form_date: company?.mcs_150_form_date,
+          mcs_150_form_date: new Date(
+            company?.mcs_150_form_date
+          ).toLocaleDateString(),
           operating_status: company?.operating_status,
         };
       });
