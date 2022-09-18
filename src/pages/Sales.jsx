@@ -3,6 +3,8 @@ import { DataGrid } from "@mui/x-data-grid";
 import { createCharge } from "../api/stripeTransactions";
 import { useUser } from "@clerk/clerk-react";
 import { getAllUserSales } from "../api/sales";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const PUBLIC_KEY =
   "pk_test_51LeNhcBoa9DkGR7IafhBYHihQ87SRbsylWCr7GTcG8MWfUDOVRh73FeBsJowSsVc6NgyrXe5HCnrw48SdMcvssm500H3zPrjAx";
@@ -14,37 +16,42 @@ const styles = {
     "flex mx-6 hover:bg-gradient-to-tr hover:from-red-500 hover:to-red-900 hover:text-white shadow-md items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg",
 };
 
-const columns = [
-  { field: "service_type", headerName: "SERVICE TYPE", flex: 1 },
-  { field: "amount_charged", headerName: "AMOUNT CHARGED", flex: 1 },
-  { field: "created_on", headerName: "CREATED ON", flex: 1 },
-  { field: "customer_name", headerName: "CUSTOMER NAME", flex: 1 },
-  { field: "customer_email", headerName: "CUSTOMER EMAIL", flex: 1 },
-  { field: "status", headerName: "STATUS", flex: 1 },
-  // {
-  //   field: "details",
-  //   headerName: "DETAILS",
-  //   flex: 1,
-  //   renderCell: (params) => {
-  //     console.log(params);
-  //     return (
-  //       <Link
-  //         className="p-2 rounded-md bg-gray-100 shadow-lg hover:bg-gray-500"
-  //         to={`/companydetails/${params.id}`}
-  //       >
-  //         Details
-  //       </Link>
-  //     );
-  //   },
-  // },
-];
-
 export const Sales = () => {
   const [rows, setRows] = useState([]);
+  const navigate = useNavigate();
   const user = useUser();
   const { id } = user.user;
-
+  const [currentRow, setCurrentRow] = useState([]);
   const MCS150_STRIPE_PRODUCT_ID = "price_1LiqTaBoa9DkGR7IvDno57bI";
+  const columns = [
+    {
+      field: "details",
+      headerName: "DETAILS",
+      width: 100,
+      renderCell: (params) => {
+        return (
+          <div>
+            <label
+              htmlFor="my-modal"
+              className="p-2 rounded-md bg-gray-100 shadow-lg hover:bg-gray-500 modal-button"
+              onClick={() => {
+                console.log(params.row);
+                setCurrentRow(params.row);
+              }}
+            >
+              Details
+            </label>
+          </div>
+        );
+      },
+    },
+    { field: "service_type", headerName: "SERVICE TYPE", flex: 1 },
+    { field: "amount_charged", headerName: "AMOUNT CHARGED", flex: 1 },
+    { field: "created_on", headerName: "CREATED ON", flex: 1 },
+    { field: "customer_name", headerName: "CUSTOMER NAME", flex: 1 },
+    { field: "customer_email", headerName: "CUSTOMER EMAIL", flex: 1 },
+    { field: "status", headerName: "STATUS", flex: 1 },
+  ];
 
   const redirectToCheckout = async () => {
     // const stripe = await getStripe();
@@ -67,6 +74,8 @@ export const Sales = () => {
             customer_name: transaction?.session?.customer_details?.name,
             customer_email: transaction?.session?.customer_details?.email,
             status: transaction?.status,
+            confirmationNumber: transaction?.confirmationNumber,
+            companyId: transaction?.companyId,
           };
         });
       setRows(allRows);
@@ -79,6 +88,58 @@ export const Sales = () => {
 
   return (
     <div className="w-full h-full flex items-center justify-center flex-col">
+      {/* DETAILS MODAL START */}
+      <input type="checkbox" id="my-modal" className="modal-toggle" />
+      <div className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Sale Details</h3>
+          <hr />
+          <div className="flex items-center justify-start mt-2 space-x-2">
+            <label className="font-bold">Service Type:</label>
+            <p>{currentRow.service_type}</p>
+          </div>
+          <div className="flex items-center justify-start mt-2 space-x-2">
+            <label className="font-bold">Created On: </label>
+            <p>{currentRow.created_on}</p>
+          </div>
+          <div className="flex items-center justify-start mt-2 space-x-2">
+            <label className="font-bold">Customer Name: </label>
+            <p>{currentRow.customer_name}</p>
+          </div>
+          <div className="flex items-center justify-start mt-2 space-x-2">
+            <label className="font-bold">Customer Email: </label>
+            <p>{currentRow.customer_email}</p>
+          </div>
+          <div className="flex items-center justify-start mt-2 space-x-2">
+            <label className="font-bold">Status: </label>
+            <p>{currentRow.status}</p>
+          </div>
+          <div className="flex items-center justify-start mt-2 space-x-2">
+            <label className="font-bold">Confirmation: </label>
+            <p>
+              {currentRow.confirmationNumber
+                ? currentRow.confirmationNumber
+                : "This sale is not complete."}
+            </p>
+          </div>
+          <div className="flex items-center justify-start mt-2">
+            <button
+              className="p-1 bg-violet-200 hover:bg-violet-300 rounded-md shadow-md"
+              onClick={() => {
+                navigate(`/companydetails/${currentRow.companyId}`);
+              }}
+            >
+              Company Details
+            </button>
+          </div>
+          <div className="modal-action">
+            <label htmlFor="my-modal" className="btn bg-red-400 border-none">
+              CLOSE
+            </label>
+          </div>
+        </div>
+      </div>
+      {/* DETAILS MODAL END */}
       <div className="stats shadow">
         <div className="stat">
           <div className="stat-figure text-secondary">

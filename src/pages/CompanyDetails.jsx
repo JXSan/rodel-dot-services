@@ -6,6 +6,7 @@ import { createCharge } from "../api/stripeTransactions";
 import { useUser } from "@clerk/clerk-react";
 import { getQueues, updateQueueObject } from "../api/queue";
 import { getSaleByTransactionId, updateSalesObject } from "../api/sales";
+import { createNote } from "../api/notes";
 
 const CompanyDetails = () => {
   const [company, setCompany] = useState([]);
@@ -39,6 +40,37 @@ const CompanyDetails = () => {
       updatedOn: date.toLocaleString(),
     };
     const updatedQueue = await updateQueueObject(currentQueue._id, queueObject);
+
+    // Create a note.
+    await createCompanyNote(
+      `${currentQueue.serviceType} has been completed, with a confirmation #: ${registrationNumber}`
+    );
+  };
+
+  const createCompanyNote = async (comment) => {
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, "0");
+    let mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    let yyyy = today.getFullYear();
+    const todaysDate = mm + "/" + dd + "/" + yyyy;
+    let currentTime =
+      new Date().getHours() +
+      ":" +
+      today.getMinutes() +
+      ":" +
+      today.getSeconds();
+
+    let noteObject = {
+      comment: comment,
+      user: user.user,
+      date: todaysDate,
+      time: currentTime,
+      refId: id,
+    };
+
+    const note = await createNote(noteObject).catch((err) => {
+      console.log(err.message);
+    });
   };
 
   const getSale = async (queue) => {
@@ -333,7 +365,7 @@ const CompanyDetails = () => {
           </div>
         </div>
         <NotesHistory />
-        <div className="w-[20%] h-full border border-gray-400 flex flex-col items-center">
+        <div className="w-[20%] h-full border border-gray-400 flex flex-col items-center space-y-2">
           <label className="badge my-2">Queue</label>
           <hr />
           {allQueues &&
@@ -367,7 +399,7 @@ const CompanyDetails = () => {
                       >
                         <div className="flex space-x-2 justify-center items-center">
                           <label className="badge p-4">Created On:</label>
-                          <p>{queue?.createdOn}</p>
+                          <p>{currentQueue?.createdOn}</p>
                         </div>
                         <div className="flex space-x-2 justify-center items-center">
                           <label className="badge p-4">Customer Name:</label>
@@ -379,7 +411,7 @@ const CompanyDetails = () => {
                         </div>
                         <div className="flex space-x-2 justify-center items-center">
                           <label className="badge p-4">Service Type:</label>
-                          <p>{queue?.serviceType}</p>
+                          <p>{currentQueue?.serviceType}</p>
                         </div>
                         <div className="flex space-x-2 justify-center items-center">
                           <label className="badge p-4">
