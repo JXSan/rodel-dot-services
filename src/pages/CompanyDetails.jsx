@@ -114,6 +114,9 @@ const CompanyDetails = () => {
     const currentYear = parseInt(date.getFullYear().toString().slice(-2));
     const isEvenYear = currentYear % 2 == 0;
 
+    const mc150FormDate = company?.mcs_150_form_date;
+    const mc150_year = parseInt(company.mcs_150_form_date?.getFullYear());
+    const mc150_month = parseInt(company.mcs_150_form_date?.getMonth());
     const dotData = company?.usdot.slice(-2);
     const dotYear = parseInt(dotData?.split("")[0]);
     const dotMonth = parseInt(dotData?.split("")[1]);
@@ -123,7 +126,7 @@ const CompanyDetails = () => {
         (isEvenYear && dotYear % 2 == 0) ||
         (!isEvenYear && dotYear % 2 != 0)
       ) {
-        setIsCurrentlyDue(true);
+        if (mc150_month < currentMonth) setIsCurrentlyDue(true);
       }
     }
   };
