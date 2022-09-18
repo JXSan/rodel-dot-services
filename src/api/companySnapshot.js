@@ -58,9 +58,11 @@ const getUCRDue = async () => {
   if (response) return response.data.results;
 };
 
-const blacklistCompany = async (usdot) => {
+const blacklistCompany = async (usdot, status) => {
   const response = await axios
-    .put(`http://localhost:8081/api/companysnapshot/blacklist/${usdot}`)
+    .put(`http://localhost:8081/api/companysnapshot/blacklist/${usdot}`, {
+      status: status,
+    })
     .catch((err) => {
       console.log(err);
     });

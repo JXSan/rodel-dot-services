@@ -9,7 +9,6 @@ const columns = [
     headerName: "DETAILS",
     flex: 1,
     renderCell: (params) => {
-      console.log(params);
       return (
         <Link
           className="p-2 rounded-md bg-gray-100 shadow-lg hover:bg-gray-500"
@@ -68,7 +67,6 @@ const UCRDueGrid = () => {
           carrier_operation: company?.carrier_operation,
         };
       });
-      console.log(allRows);
       setRows(allRows);
     }
   };

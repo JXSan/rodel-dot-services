@@ -74,7 +74,6 @@ const UCR = () => {
     const month = months[monthNumber];
     const currentYear = date.getFullYear();
     if (monthNumber + 1 >= 10) {
-      console.log("Enter");
       setYears([currentYear, currentYear + 1]);
     } else setYears([currentYear - 1, currentYear]);
   }, []);

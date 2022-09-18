@@ -17,7 +17,6 @@ import { useUser } from "@clerk/clerk-react";
 
 const Backoffice = () => {
   const user = useUser();
-  console.log(user.user.unsafeMetadata.status);
   const isAdmin = user.user?.unsafeMetadata?.isAdmin;
   if (user.user.unsafeMetadata.status === "active") {
     return (

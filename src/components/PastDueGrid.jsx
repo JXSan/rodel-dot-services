@@ -10,7 +10,6 @@ const columns = [
     headerName: "DETAILS",
     flex: 1,
     renderCell: (params) => {
-      console.log(params);
       return (
         <Link
           className="p-2 rounded-md bg-gray-100 shadow-lg hover:bg-gray-500"
@@ -56,7 +55,6 @@ const PastDueGrid = () => {
   const fetchAllCompanies = async () => {
     const response = await getPastDue();
     if (response) {
-      console.log(response);
       setAllCompanies(response);
       const allRows = response?.map((company) => {
         return {
@@ -76,7 +74,6 @@ const PastDueGrid = () => {
 
   const requestSearch = (searchedVal) => {
     const filteredRows = rows.filter((company) => {
-      console.log(searchedVal);
       return company?.dba_name
         .toLowerCase()
         .includes(searchedVal.toLowerCase());

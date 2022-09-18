@@ -25,7 +25,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const currentUser = auth.onAuthStateChanged((authUser) => {
       getUserByEmail(authUser.email);
-      console.log(authUser);
       setUser(authUser);
     });
 

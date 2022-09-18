@@ -27,6 +27,15 @@ const getAllUserSales = async (uid) => {
   if (response) return response.data;
 };
 
+const getSaleByTransactionId = async (id) => {
+  const response = await axios
+    .get(`http://localhost:8081/api/sales/getSaleByTransactionId/${id}`)
+    .catch((err) => {
+      console.log(err);
+    });
+  if (response) return response.data;
+};
+
 const createSale = async (saleObject) => {
   const response = await axios
     .post(
@@ -51,6 +60,17 @@ const updateSaleStatusById = async (id, status) => {
   if (response) return response.data;
 };
 
+const updateSalesObject = async (transactionId, registrationNumber) => {
+  const response = await axios
+    .put(`http://localhost:8081/api/sales/updateSaleObject/${transactionId}`, {
+      confirmationNumber: registrationNumber,
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  if (response) return response.data;
+};
+
 const removeSale = async (id) => {
   const response = await axios
     .get(`https://rodel-dot-services.herokuapp.com/api/sales/deleteSale/${id}`)
@@ -67,4 +87,6 @@ export {
   createSale,
   updateSaleStatusById,
   removeSale,
+  getSaleByTransactionId,
+  updateSalesObject,
 };

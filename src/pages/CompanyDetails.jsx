@@ -4,6 +4,8 @@ import { getCompanyById, blacklistCompany } from "../api/companySnapshot";
 import NotesHistory from "../components/Notes/NotesHistory";
 import { createCharge } from "../api/stripeTransactions";
 import { useUser } from "@clerk/clerk-react";
+import { getQueues, updateQueueObject } from "../api/queue";
+import { getSaleByTransactionId, updateSalesObject } from "../api/sales";
 
 const CompanyDetails = () => {
   const [company, setCompany] = useState([]);
@@ -13,10 +15,52 @@ const CompanyDetails = () => {
   const [isCurrentlyDue, setIsCurrentlyDue] = useState(false);
   const [isPastDue, setIsPastDue] = useState(false);
   const [isUCRDue, setIsUCRDue] = useState(false);
+  const [registrationNumber, setRegistrationNumber] = useState("");
+  const [allQueues, setAllQueue] = useState([]);
+  const [currentQueue, setCurrentQueue] = useState([]);
+  const [transaction, setTransaction] = useState([]);
   const date = new Date();
   const navigate = useNavigate();
 
   const MCS150_STRIPE_PRODUCT_ID = "price_1LiqRnBoa9DkGR7IEkJOr3q8";
+
+  const completeSale = async (event) => {
+    event.preventDefault();
+    const date = new Date();
+    // Proceed to close out queue
+    const updatedSale = await updateSalesObject(
+      transaction?.transactionId,
+      registrationNumber
+    );
+
+    // Close out queue.
+    const queueObject = {
+      status: "Complete",
+      updatedOn: date.toLocaleString(),
+    };
+    const updatedQueue = await updateQueueObject(currentQueue._id, queueObject);
+  };
+
+  const getSale = async (queue) => {
+    const _transaction = await getSaleByTransactionId(queue.transactionId);
+    if (_transaction) {
+      setTransaction(_transaction.results[0]);
+      setCurrentQueue(queue);
+    }
+  };
+
+  const fetchAllQueues = async () => {
+    const queues = await getQueues(id);
+    if (queues) {
+      for (const q of queues.results) {
+        const sale = await getSale(q.transactionId);
+        if (sale) {
+          q.saleObject = sale;
+        }
+      }
+      setAllQueue(queues.results);
+    }
+  };
 
   const checkIsCurrentlyDue = (company) => {
     company = company[0];
@@ -43,8 +87,6 @@ const CompanyDetails = () => {
     const currentMonth = parseInt(date.getMonth()) + 1;
     const currentYear = date.getFullYear();
     const isEvenYear = currentYear % 2 == 0;
-
-    console.log(company);
 
     const mc150FormDate = new Date(company?.mcs_150_form_date);
     const mc150_year = parseInt(mc150FormDate.getFullYear());
@@ -123,6 +165,7 @@ const CompanyDetails = () => {
 
   useEffect(() => {
     fetchCompany();
+    fetchAllQueues();
   }, []);
 
   return (
@@ -290,27 +333,85 @@ const CompanyDetails = () => {
           </div>
         </div>
         <NotesHistory />
+        <div className="w-[20%] h-full border border-gray-400 flex flex-col items-center">
+          <label className="badge my-2">Queue</label>
+          <hr />
+          {allQueues &&
+            allQueues.map((queue) => {
+              return (
+                <div>
+                  <label
+                    onClick={() => getSale(queue)}
+                    htmlFor="my-modal-3"
+                    className="btn modal-button"
+                  >
+                    {queue?.serviceType} - {queue?.status}
+                  </label>
+
+                  <input
+                    type="checkbox"
+                    id="my-modal-3"
+                    className="modal-toggle"
+                  />
+                  <div className="modal">
+                    <div className="modal-box relative">
+                      <label
+                        htmlFor="my-modal-3"
+                        className="btn btn-sm btn-circle absolute right-2 top-2"
+                      >
+                        ✕
+                      </label>
+                      <form
+                        onSubmit={completeSale}
+                        className="container flex flex-col items-start space-y-1"
+                      >
+                        <div className="flex space-x-2 justify-center items-center">
+                          <label className="badge p-4">Created On:</label>
+                          <p>{queue?.createdOn}</p>
+                        </div>
+                        <div className="flex space-x-2 justify-center items-center">
+                          <label className="badge p-4">Customer Name:</label>
+                          <p>{transaction?.session?.customer_details?.name}</p>
+                        </div>
+                        <div className="flex space-x-2 justify-center items-center">
+                          <label className="badge p-4">Customer Email:</label>
+                          <p>{transaction?.session?.customer_details?.email}</p>
+                        </div>
+                        <div className="flex space-x-2 justify-center items-center">
+                          <label className="badge p-4">Service Type:</label>
+                          <p>{queue?.serviceType}</p>
+                        </div>
+                        <div className="flex space-x-2 justify-center items-center">
+                          <label className="badge p-4">
+                            SAFER MC150 Registration Number
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            onChange={(e) => {
+                              setRegistrationNumber(e.target.value);
+                            }}
+                            value={registrationNumber}
+                            className="border p-1 rounded-md border-gray-400 focus:ring-0"
+                          />
+                        </div>
+                        <button
+                          type="submit"
+                          className="p-1 ronuded-lg border bg-gray-300 hover:bg-gray-400"
+                        >
+                          Complete Transaction
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                // <button onClick={handleQueue} className="btn">
+                //   {queue?.serviceType} - {queue?.status}
+                // </button>
+              );
+            })}
+        </div>
       </div>
-      {/* <div className="grow mt-10">
-        <p className="text-md">Select Service</p>
-      </div>
-      <div className="flex items-center justify-between grow space-x-2 text-sm">
-        <button className=" p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400">
-          Update/MCS-150
-        </button>
-        <button className="p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400">
-          UCR (0-2)
-        </button>
-        <button className="p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400">
-          UCR (3-5)
-        </button>
-        <button className="p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400">
-          UCR (6-20)
-        </button>
-        <button className="p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400">
-          UCR (21-100)
-        </button>
-      </div> */}
     </div>
   );
 };

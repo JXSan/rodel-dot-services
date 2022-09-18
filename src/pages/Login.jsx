@@ -14,7 +14,6 @@ const Login = () => {
     event.preventDefault();
     try {
       await signIn(email, password);
-      console.log("Navigating to dashboard.");
       navigate("/");
     } catch (e) {
       toast.error(`Error: ${e.message}`);
