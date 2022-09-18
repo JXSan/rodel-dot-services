@@ -43,7 +43,7 @@ const CompanyDetails = () => {
 
     // Create a note.
     await createCompanyNote(
-      `${currentQueue.serviceType} has been completed, with a confirmation #: ${registrationNumber}`
+      `${currentQueue.serviceType} has been completed, with a confirmation #${registrationNumber}`
     );
   };
 
@@ -397,24 +397,24 @@ const CompanyDetails = () => {
                         className="container flex flex-col items-start space-y-1"
                       >
                         <div className="flex space-x-2 justify-center items-center">
-                          <label className="badge p-4">Created On:</label>
+                          <label className="badge p-2">Created On:</label>
                           <p>{currentQueue?.createdOn}</p>
                         </div>
                         <div className="flex space-x-2 justify-center items-center">
-                          <label className="badge p-4">Customer Name:</label>
+                          <label className="badge p-2">Customer Name:</label>
                           <p>{transaction?.session?.customer_details?.name}</p>
                         </div>
                         <div className="flex space-x-2 justify-center items-center">
-                          <label className="badge p-4">Customer Email:</label>
+                          <label className="badge p-2">Customer Email:</label>
                           <p>{transaction?.session?.customer_details?.email}</p>
                         </div>
                         <div className="flex space-x-2 justify-center items-center">
-                          <label className="badge p-4">Service Type:</label>
+                          <label className="badge p-2">Service Type:</label>
                           <p>{currentQueue?.serviceType}</p>
                         </div>
                         <div className="flex space-x-2 justify-center items-center">
-                          <label className="badge p-4">
-                            SAFER MC150 Registration Number
+                          <label className="badge p-2 text-sm">
+                            {`${currentQueue?.serviceType} Confirmation Number`}
                           </label>
                           <input
                             type="text"
