@@ -152,7 +152,12 @@ const CompanyDetails = () => {
         if (mc150_month && mc150_year) {
           // Enter if the MC150 Form month is before the current month and the MC150 Form year is this year or any year before current.
           //(Might need to add a limit here for MC150 year, to only go 6 years back.)
-          if (mc150_month < currentMonth && mc150_year <= currentYear)
+          const minYearAccepted = currentYear - 4;
+          if (
+            mc150_month < currentMonth &&
+            mc150_year >= minYearAccepted &&
+            mc150_year != currentYear
+          )
             setIsPastDue(true);
         }
       }
