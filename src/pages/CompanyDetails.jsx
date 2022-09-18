@@ -24,6 +24,7 @@ const CompanyDetails = () => {
   const navigate = useNavigate();
 
   const MCS150_STRIPE_PRODUCT_ID = "price_1LiqRnBoa9DkGR7IEkJOr3q8";
+  const OTHER_PRODUCT_ID = "price_1Lj6cTBoa9DkGR7IVEK6lGgF";
 
   const completeSale = async (event) => {
     event.preventDefault();
@@ -178,8 +179,8 @@ const CompanyDetails = () => {
     window.open(`https://www.ucr.gov/enforcement/`, "_blank");
   };
 
-  const handleBlacklistButton = async (usdot) => {
-    await blacklistCompany(usdot);
+  const handleBlacklist = async (usdot, status) => {
+    await blacklistCompany(usdot, status);
   };
 
   const handleMCSUpdate = async () => {
@@ -188,6 +189,16 @@ const CompanyDetails = () => {
       MCS150_STRIPE_PRODUCT_ID,
       id,
       "MCS150 Registration/Update"
+    );
+    window.open(paymentURL, "_blank");
+  };
+
+  const handleOtherServices = async () => {
+    const { paymentURL } = await createCharge(
+      user,
+      OTHER_PRODUCT_ID,
+      id,
+      "RODL Services"
     );
     window.open(paymentURL, "_blank");
   };
@@ -220,6 +231,12 @@ const CompanyDetails = () => {
             className="p-1 bg-orange-400 shadow-xl text-white font-light rounded drop-shadow-md hover:bg-orange-500"
           >
             UCR REGISTRATION
+          </button>
+          <button
+            onClick={handleOtherServices}
+            className="p-1 bg-orange-400 shadow-xl text-white font-light rounded drop-shadow-md hover:bg-orange-500"
+          >
+            OTHER SERVICES
           </button>
         </div>
       </div>
@@ -315,6 +332,9 @@ const CompanyDetails = () => {
                       {item.blacklisted == true && (
                         <button
                           type="button"
+                          onClick={() => {
+                            handleBlacklist(item?.usdot, false);
+                          }}
                           className="text-sm text-white p-2 bg-black rounded-lg"
                         >
                           UN-BLACKLIST
@@ -324,7 +344,7 @@ const CompanyDetails = () => {
                         <button
                           type="button"
                           onClick={() => {
-                            handleBlacklistButton(item?.usdot);
+                            handleBlacklist(item?.usdot, true);
                           }}
                           className="text-sm text-white p-2 bg-black rounded-lg"
                         >

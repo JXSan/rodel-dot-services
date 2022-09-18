@@ -50,7 +50,8 @@ export const Sales = () => {
     { field: "created_on", headerName: "CREATED ON", flex: 1 },
     { field: "customer_name", headerName: "CUSTOMER NAME", flex: 1 },
     { field: "customer_email", headerName: "CUSTOMER EMAIL", flex: 1 },
-    { field: "status", headerName: "STATUS", flex: 1 },
+    { field: "status", headerName: "PAYMENT STATUS", flex: 1 },
+    { field: "order_status", headerName: "ORDER STATUS", flex: 1 },
   ];
 
   const redirectToCheckout = async () => {
@@ -75,6 +76,9 @@ export const Sales = () => {
             status: transaction?.status,
             confirmationNumber: transaction?.confirmationNumber,
             companyId: transaction?.companyId,
+            order_status: transaction?.confirmationNumber
+              ? "Complete"
+              : "Not Complete",
           };
         });
       setRows(allRows);
