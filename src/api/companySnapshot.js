@@ -69,6 +69,17 @@ const blacklistCompany = async (usdot, status) => {
   if (response) return response.data.results;
 };
 
+const getLatestFromSafer = async (id) => {
+  const response = await axios
+    .get(
+      `https://rodel-dot-services.herokuapp.com/api/companysnapshot/fetchLatest/${id}`
+    )
+    .catch((err) => {
+      console.log(err);
+    });
+  if (response) return response.data.results;
+};
+
 export {
   getAllCompanies,
   getCurrentCompanies,
@@ -77,4 +88,5 @@ export {
   getCompany,
   getCompanyById,
   blacklistCompany,
+  getLatestFromSafer,
 };

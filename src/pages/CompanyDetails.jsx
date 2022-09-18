@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getCompanyById, blacklistCompany } from "../api/companySnapshot";
+import {
+  getCompanyById,
+  blacklistCompany,
+  getLatestFromSafer,
+} from "../api/companySnapshot";
 import NotesHistory from "../components/Notes/NotesHistory";
 import { createCharge } from "../api/stripeTransactions";
 import { useUser } from "@clerk/clerk-react";
 import { getQueues, updateQueueObject } from "../api/queue";
 import { getSaleByTransactionId, updateSalesObject } from "../api/sales";
 import { createNote } from "../api/notes";
+import toast from "react-hot-toast";
 
 const CompanyDetails = () => {
   const [company, setCompany] = useState([]);
@@ -25,6 +30,14 @@ const CompanyDetails = () => {
 
   const MCS150_STRIPE_PRODUCT_ID = "price_1LiqRnBoa9DkGR7IEkJOr3q8";
   const OTHER_PRODUCT_ID = "price_1Lj6cTBoa9DkGR7IVEK6lGgF";
+
+  const refreshCompanyDetails = async () => {
+    const updatedCompany = await getLatestFromSafer(id);
+    if (updatedCompany) {
+      window.location.reload();
+      toast.success("Company successfully updated.");
+    }
+  };
 
   const completeSale = async (event) => {
     event.preventDefault();
@@ -215,9 +228,9 @@ const CompanyDetails = () => {
   return (
     <div className="w-full h-full flex flex-col items-center">
       {/* Please select a service */}
-      <div className="rounded-lg drop-shadow-sm mt-10 w-auto flex flex-col items-center justify-center space-x-4 p-2">
+      <div className="rounded-lg drop-shadow-sm mt-2 w-auto flex flex-col items-center justify-center space-x-4 p-2">
         <div>
-          <p className="text-xl font-sans font-bold mb-2">Services</p>
+          <p className="text-xl font-sans font-bold mb-2">Quick links</p>
         </div>
         <div className="flex space-x-4">
           <button
@@ -238,16 +251,22 @@ const CompanyDetails = () => {
           >
             OTHER SERVICES
           </button>
+          <button
+            onClick={refreshCompanyDetails}
+            className="p-1 bg-gray-400 shadow-xl text-white font-light rounded drop-shadow-md hover:bg-orange-500"
+          >
+            REFRESH COMPANY DETAILS
+          </button>
         </div>
       </div>
 
       {/*  Company Details */}
-      <div className="w-full flex space-x-4 mt-10">
+      <div className="w-full flex space-x-4 mt-2">
         <div className="w-auto flex flex-col items-center space-y-4">
           <p className="text-sm font-bold bg-gray-200 drop-shadow-md rounded-md px-1">
             {`Company Details for #${company[0]?.usdot}`}
           </p>
-          <div className="ml-10">
+          <div className="ml-10 font-sm">
             {company.map((item) => {
               return (
                 <div className="flex flex-col ">
@@ -287,7 +306,7 @@ const CompanyDetails = () => {
                     </div>
                     <div className=" rounded-lg  text-black bg-gray-200">
                       {item?.mcs_150_form_date
-                        ? item.mcs_150_form_date
+                        ? new Date(item.mcs_150_form_date).toLocaleDateString()
                         : "Not available"}
                     </div>
                   </div>
@@ -307,6 +326,12 @@ const CompanyDetails = () => {
                       {item?.mc_mx_ff_numbers
                         ? item.mc_mx_ff_numbers
                         : "Not available"}
+                    </div>
+                  </div>
+                  <div className=" rounded-lg">
+                    <div className="text-sm text-gray-500">Last Updated On</div>
+                    <div className=" rounded-lg  text-black bg-gray-200">
+                      {item?.updatedOn ? item.updatedOn : "Not available"}
                     </div>
                   </div>
                   <div className="mt-4 rounded-lg flex flex-col space-y-2">
