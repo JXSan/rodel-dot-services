@@ -31,8 +31,8 @@ const CompanyDetails = () => {
 
   console.log(user);
 
-  const MCS150_STRIPE_PRODUCT_ID = "price_1LiqRnBoa9DkGR7IEkJOr3q8";
-  const OTHER_PRODUCT_ID = "price_1Lj6cTBoa9DkGR7IVEK6lGgF";
+  const MCS150_STRIPE_PRODUCT_ID = "price_1LjmM9Boa9DkGR7IaoPfMpWv";
+  const OTHER_PRODUCT_ID = "price_1LjmMKBoa9DkGR7IAxQTD9Lv";
 
   const refreshCompanyDetails = async () => {
     const updatedCompany = await getLatestFromSafer(id);

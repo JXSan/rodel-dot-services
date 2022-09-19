@@ -69,7 +69,7 @@ export const Sales = () => {
           ).toLocaleDateString();
           const currentDate = new Date().toLocaleDateString();
           if (transactionDate === currentDate) {
-            const amount = transaction.session?.amount_total / 100;
+            const amount = 20;
             setTotalSales((prev) => (prev += amount));
           }
           return {
