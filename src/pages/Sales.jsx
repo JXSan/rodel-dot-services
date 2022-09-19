@@ -64,6 +64,14 @@ export const Sales = () => {
         .map((transaction) => {
           // Run your totalSales logic here, before the below return statement.
           // You can also filter based off todays date too
+          const transactionDate = new Date(
+            transaction.createdOn
+          ).toLocaleDateString();
+          const currentDate = new Date().toLocaleDateString();
+          if (transactionDate === currentDate) {
+            const amount = transaction.session?.amount_total / 100;
+            setTotalSales((prev) => (prev += amount));
+          }
           return {
             id: transaction?._id,
             service_type: transaction?.serviceType,
@@ -158,9 +166,13 @@ export const Sales = () => {
               ></path>
             </svg>
           </div>
-          <div className="stat-title">Todays Total Sales</div>
-          <div className="stat-value">$323.32</div>
-          <div className="stat-desc">2 Sales Made | September 15, 2022</div>
+          {totalSales && (
+            <>
+              <div className="stat-title">Todays Total Sales</div>
+              <div className="stat-value">{`$${totalSales}`}</div>
+              <div className="stat-desc">{new Date().toLocaleDateString()}</div>
+            </>
+          )}
         </div>
       </div>
       <div className="w-full  px-4 py-2 rounded-lg flex flex-col">
