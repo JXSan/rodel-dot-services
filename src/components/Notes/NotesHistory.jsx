@@ -56,7 +56,7 @@ const NotesHistory = () => {
   }, [newNoteSubmitted]);
 
   return (
-    <div className="w-[50%] flex flex-col items-center border border-gray-400">
+    <div className="w-[40%] flex flex-col items-center border border-gray-400">
       <h1>Notes History</h1>
       <form onSubmit={handleNoteInput} className="w-full flex items-center">
         <input

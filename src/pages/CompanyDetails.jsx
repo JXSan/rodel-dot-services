@@ -28,6 +28,8 @@ const CompanyDetails = () => {
   const date = new Date();
   const navigate = useNavigate();
 
+  console.log(user);
+
   const MCS150_STRIPE_PRODUCT_ID = "price_1LiqRnBoa9DkGR7IEkJOr3q8";
   const OTHER_PRODUCT_ID = "price_1Lj6cTBoa9DkGR7IVEK6lGgF";
 
@@ -424,13 +426,27 @@ const CompanyDetails = () => {
             allQueues.map((queue) => {
               return (
                 <div>
-                  <label
+                  {user.user.unsafeMetadata.isAdmin && (
+                    <label
+                      onClick={() => getSale(queue)}
+                      htmlFor="my-modal-3"
+                      className=" p-1 cursor-pointer bg-red-400 text-white font-light hover:bg-red-500 border rounded-md text-sm modal-button"
+                    >
+                      {queue?.serviceType} - {queue?.status}
+                    </label>
+                  )}
+                  {!user.user.unsafeMetadata.isAdmin && (
+                    <label className=" p-1 bg-red-400 text-white font-light hover:bg-red-500 border rounded-md text-sm modal-button">
+                      {queue?.serviceType} - {queue?.status}
+                    </label>
+                  )}
+                  {/* <label
                     onClick={() => getSale(queue)}
                     htmlFor="my-modal-3"
-                    className="btn modal-button"
+                    className=" p-1 cursor-pointer bg-red-400 text-white font-light hover:bg-red-500 border rounded-md text-sm modal-button"
                   >
                     {queue?.serviceType} - {queue?.status}
-                  </label>
+                  </label> */}
 
                   <input
                     type="checkbox"
@@ -447,7 +463,7 @@ const CompanyDetails = () => {
                       </label>
                       <form
                         onSubmit={completeSale}
-                        className="container flex flex-col items-start space-y-1"
+                        className="container flex flex-col items-start space-y-1 p-2"
                       >
                         <div className="flex space-x-2 justify-center items-center">
                           <label className="badge p-2">Created On:</label>
@@ -465,9 +481,10 @@ const CompanyDetails = () => {
                           <label className="badge p-2">Service Type:</label>
                           <p>{currentQueue?.serviceType}</p>
                         </div>
-                        <div className="flex space-x-2 justify-center items-center">
-                          <label className="badge p-2 text-sm">
-                            {`${currentQueue?.serviceType} Confirmation Number`}
+                        <div className="divider-horizontal"></div>
+                        <div className="flex space-x-2 justify-center flex-wrap items-center mt-2">
+                          <label className=" bg-orange-300 border drop-shadow-md p-1 rounded-md text-sm">
+                            {`Please enter ${currentQueue?.serviceType} Confirmation Number`}
                           </label>
                           <input
                             type="text"
@@ -476,15 +493,17 @@ const CompanyDetails = () => {
                               setRegistrationNumber(e.target.value);
                             }}
                             value={registrationNumber}
-                            className="border p-1 rounded-md border-gray-400 focus:ring-0"
+                            className="border p-1 mt-2 rounded-md border-gray-400 focus:ring-0"
                           />
                         </div>
-                        <button
-                          type="submit"
-                          className="p-1 ronuded-lg border bg-gray-300 hover:bg-gray-400"
-                        >
-                          Complete Transaction
-                        </button>
+                        <div className="flex justify-center w-full mt-1">
+                          <button
+                            type="submit"
+                            className="p-1 rounded-lg border bg-orange-400 hover:bg-orange-500"
+                          >
+                            Complete Transaction
+                          </button>
+                        </div>
                       </form>
                     </div>
                   </div>
