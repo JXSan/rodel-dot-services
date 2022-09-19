@@ -132,7 +132,12 @@ const CompanyDetails = () => {
         (isEvenYear && dotYear % 2 == 0) ||
         (!isEvenYear && dotYear % 2 != 0)
       ) {
-        if (mc150_month < currentMonth) setIsCurrentlyDue(true);
+        if (mc150_month) {
+          if (mc150_month < currentMonth) {
+            const minYearAccepted = new Date().getFullYear() - 4;
+            if (mc150_year >= minYearAccepted) setIsCurrentlyDue(true);
+          }
+        }
       }
     }
   };
