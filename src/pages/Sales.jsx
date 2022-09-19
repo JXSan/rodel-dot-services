@@ -196,7 +196,10 @@ export const Sales = () => {
             <>
               <div className="stat-title">Todays Total Sales</div>
               <div className="stat-value">{`$${totalSales}`}</div>
-              <div className="stat-desc">{new Date().toLocaleDateString()}</div>
+              <div className="stat-desc">
+                {`${totalSales / 20} sales made on ` +
+                  new Date().toLocaleDateString()}
+              </div>
             </>
           )}
         </div>

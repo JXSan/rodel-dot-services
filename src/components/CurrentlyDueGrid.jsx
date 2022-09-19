@@ -20,26 +20,31 @@ const columns = [
     },
   },
   { field: "usdot", sortable: true, headerName: "USDOT" },
-  { field: "legal_name", minWidth: 300, headerName: "LEGAL NAME", flex: 1 },
   {
-    field: "dba_name",
-    headerName: "DBA NAME",
-    minWidth: 300,
+    field: "legal_name",
+    minWidth: 100,
+    maxWidth: 500,
+    headerName: "LEGAL NAME",
     flex: 1,
   },
-  { field: "email", headerName: "EMAIL", minWidth: 300, flex: 1 },
-  { field: "address", minWidth: 300, headerName: "ADDRESS", flex: 1 },
+  // {
+  //   field: "dba_name",
+  //   headerName: "DBA NAME",
+  //   minWidth: 300,
+  //   flex: 1,
+  // },
+  // { field: "email", headerName: "EMAIL", minWidth: 300, flex: 1 },
+  // { field: "address", minWidth: 300, headerName: "ADDRESS", flex: 1 },
   {
     field: "mcs_150_form_date",
-    minWidth: 300,
+    width: 200,
+
     headerName: "MCS 150 FORM DATE",
-    flex: 1,
   },
   {
     field: "operating_status",
-    minWidth: 200,
+    width: 200,
     headerName: "OPERATING STATUS",
-    flex: 1,
   },
 ];
 
@@ -78,7 +83,9 @@ const CurrentlyDueGrid = () => {
           dba_name: company?.dba_name,
           email: company?.email,
           address: company?.address,
-          mcs_150_form_date: company?.mcs_150_form_date,
+          mcs_150_form_date: new Date(
+            company?.mcs_150_form_date
+          ).toLocaleDateString(),
           operating_status: company?.operating_status,
         };
       });

@@ -8,7 +8,7 @@ const columns = [
   {
     field: "details",
     headerName: "DETAILS",
-    flex: 1,
+    width: 100,
     renderCell: (params) => {
       return (
         <Link
