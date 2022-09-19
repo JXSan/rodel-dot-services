@@ -55,11 +55,6 @@ export const Sales = () => {
     { field: "order_status", headerName: "ORDER STATUS", flex: 1 },
   ];
 
-  const redirectToCheckout = async () => {
-    const { paymentURL } = await createCharge(user, MCS150_STRIPE_PRODUCT_ID);
-    window.location.href = paymentURL;
-  };
-
   const fetchAllUserSales = async () => {
     const response = await getAllUserSales(id);
     if (response) {
