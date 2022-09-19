@@ -62,7 +62,8 @@ const UCR = () => {
         user,
         selectedPaymentId,
         id,
-        "UCR Registration"
+        "UCR Registration",
+        formData
       );
       window.open(paymentURL, "_blank");
       navigate("/sales");

@@ -85,6 +85,7 @@ export const Sales = () => {
             order_status: transaction?.confirmationNumber
               ? "Complete"
               : "Not Complete",
+            ucrFormData: transaction?.ucrFormData,
           };
         });
       setRows(allRows);
@@ -131,6 +132,31 @@ export const Sales = () => {
                 : "This sale is not complete."}
             </p>
           </div>
+          <hr className="mt-2" />
+          {currentRow.ucrFormData && (
+            <div>
+              <h3 className="font-bold text-lg">UCR Details</h3>
+              <div className="flex items-center justify-start mt-2 space-x-2">
+                <label className="font-bold">
+                  Years Needing Registration:{" "}
+                </label>
+                <p>{currentRow.ucrFormData.years}</p>
+              </div>
+              <div className="flex items-center justify-start mt-2 space-x-2">
+                <label className="font-bold">Size of Fleet Bracket: </label>
+                <p>{currentRow.ucrFormData.yearsNeedingRegistration}</p>
+              </div>
+              <div className="flex items-center justify-start mt-2 space-x-2">
+                <label className="font-bold"># Of Vehicles: </label>
+                <p>{currentRow.ucrFormData.vehicles}</p>
+              </div>
+              <div className="flex items-center justify-start mt-2 space-x-2">
+                <label className="font-bold">Classification: </label>
+                <p>{currentRow.ucrFormData.classification}</p>
+              </div>
+            </div>
+          )}
+          <hr />
           <div className="flex items-center justify-start mt-2">
             <button
               className="p-1 bg-violet-200 hover:bg-violet-300 rounded-md shadow-md"
