@@ -62,6 +62,7 @@ const CompanyDetails = () => {
     await createCompanyNote(
       `${currentQueue.serviceType} has been completed, with a confirmation #${registrationNumber}`
     );
+    window.location.reload();
   };
 
   const createCompanyNote = async (comment) => {
@@ -204,8 +205,8 @@ const CompanyDetails = () => {
   };
 
   const handleBlacklist = async (usdot, status) => {
-    setBlacklist(status);
     await blacklistCompany(usdot, status);
+    window.location.reload();
   };
 
   const handleMCSUpdate = async () => {
