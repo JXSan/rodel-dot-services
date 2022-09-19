@@ -60,9 +60,12 @@ const getUCRDue = async () => {
 
 const blacklistCompany = async (usdot, status) => {
   const response = await axios
-    .put(`http://localhost:8081/api/companysnapshot/blacklist/${usdot}`, {
-      status: status,
-    })
+    .put(
+      `https://rodel-dot-services.herokuapp.com/api/companysnapshot/blacklist/${usdot}`,
+      {
+        status: status,
+      }
+    )
     .catch((err) => {
       console.log(err);
     });

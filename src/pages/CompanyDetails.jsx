@@ -21,6 +21,7 @@ const CompanyDetails = () => {
   const [isCurrentlyDue, setIsCurrentlyDue] = useState(false);
   const [isPastDue, setIsPastDue] = useState(false);
   const [isUCRDue, setIsUCRDue] = useState(false);
+  const [blacklist, setBlacklist] = useState(false);
   const [registrationNumber, setRegistrationNumber] = useState("");
   const [allQueues, setAllQueue] = useState([]);
   const [currentQueue, setCurrentQueue] = useState([]);
@@ -116,9 +117,9 @@ const CompanyDetails = () => {
     const currentYear = parseInt(date.getFullYear().toString().slice(-2));
     const isEvenYear = currentYear % 2 == 0;
 
-    const mc150FormDate = company?.mcs_150_form_date;
-    const mc150_year = parseInt(company.mcs_150_form_date?.getFullYear());
-    const mc150_month = parseInt(company.mcs_150_form_date?.getMonth());
+    const mc150FormDate = new Date(company?.mcs_150_form_date);
+    const mc150_year = parseInt(mc150FormDate.getFullYear());
+    const mc150_month = parseInt(mc150FormDate.getMonth());
     const dotData = company?.usdot.slice(-2);
     const dotYear = parseInt(dotData?.split("")[0]);
     const dotMonth = parseInt(dotData?.split("")[1]);
@@ -203,6 +204,7 @@ const CompanyDetails = () => {
   };
 
   const handleBlacklist = async (usdot, status) => {
+    setBlacklist(status);
     await blacklistCompany(usdot, status);
   };
 
