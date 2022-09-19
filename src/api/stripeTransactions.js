@@ -11,7 +11,7 @@ const getAllStripeTransactions = async () => {
 
 const createCharge = async (user, productId, companyId, serviceType) => {
   const response = await axios
-    .post("https://rodel-dot-services.herokuapp.com/api/stripe/payment", {
+    .post("http://localhost:8081/api/stripe/payment", {
       productId: productId,
       user: user.user,
       company: companyId,
