@@ -62,6 +62,8 @@ const CompanyDetails = () => {
     await createCompanyNote(
       `${currentQueue.serviceType} has been completed, with a confirmation #${registrationNumber}`
     );
+    toast.success("Completed sale.");
+
     window.location.reload();
   };
 
@@ -216,6 +218,7 @@ const CompanyDetails = () => {
       id,
       "MCS150 Registration/Update"
     );
+    toast.success("Company successfully blacklisted.");
     window.open(paymentURL, "_blank");
   };
 
