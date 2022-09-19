@@ -218,6 +218,7 @@ const CompanyDetails = () => {
       id,
       "MCS150 Registration/Update"
     );
+    console.log(paymentURL);
     toast.success("Company successfully blacklisted.");
     window.open(paymentURL, "_blank");
   };
