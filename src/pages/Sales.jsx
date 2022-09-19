@@ -18,6 +18,7 @@ const styles = {
 
 export const Sales = () => {
   const [rows, setRows] = useState([]);
+  const [totalSales, setTotalSales] = useState(0);
   const navigate = useNavigate();
   const user = useUser();
   const { id } = user.user;
@@ -66,6 +67,8 @@ export const Sales = () => {
         .slice(0)
         .reverse()
         .map((transaction) => {
+          // Run your totalSales logic here, before the below return statement.
+          // You can also filter based off todays date too
           return {
             id: transaction?._id,
             service_type: transaction?.serviceType,
@@ -173,31 +176,6 @@ export const Sales = () => {
             columns={columns}
             pageSize={15}
           />
-        </div>
-      </div>
-      <div className="w-[100wh] flex ml-10 space-x-4 bg-gray-200 p-2 rounded-lg drop-shadow-lg justify-evenly items-center">
-        <div className="grow">
-          <p className="text-md">Select Service</p>
-        </div>
-        <div className="flex items-center justify-between grow space-x-2 text-sm">
-          <button
-            onClick={redirectToCheckout}
-            className=" p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400"
-          >
-            Update/MCS-150
-          </button>
-          <button className="p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400">
-            UCR (0-2)
-          </button>
-          <button className="p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400">
-            UCR (3-5)
-          </button>
-          <button className="p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400">
-            UCR (6-20)
-          </button>
-          <button className="p-1 bg-gray-300 shadow-xl rounded drop-shadow-md hover:bg-gray-400">
-            UCR (21-100)
-          </button>
         </div>
       </div>
     </div>

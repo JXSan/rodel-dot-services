@@ -7,11 +7,11 @@ const styles = {
   searchContainer: "flex flex-col w-full items-center",
   label: "mb-10",
   labelText:
-    "font-extrabold text-transparent md:text-4xl lg:text-6xl bg-clip-text bg-gradient-to-r from-red-400 to-red-900",
+    "font-extrabold text-transparent md:text-4xl lg:text-6xl bg-clip-text bg-gradient-to-r from-orange-400 to-orange-900",
   buttonSectionWrapper:
     "flex justify-evenly w-6/12 lg:h-20 md:h-16 sm:h-12 lg:text-md md:text-sm",
   button:
-    "lg:w-40 md:w-30 lg:p-3 md:p-2 shadow-md rounded-2xl bg-gradient-to-b from-red-500 to-red-800 text-white hover:bg-gradient-to-t hover:from-red-500 hover:to-pink-900 hover:text-white",
+    "lg:w-40 md:w-30 lg:p-3 md:p-2 shadow-md rounded-2xl bg-gradient-to-b from-orange-500 to-orange-800 text-white hover:bg-gradient-to-t hover:from-orange-500 hover:to-orange-900 hover:text-white",
 };
 const Search = () => {
   return (

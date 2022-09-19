@@ -7,8 +7,7 @@ const columns = [
   {
     field: "details",
     headerName: "DETAILS",
-    flex: 1,
-    minWidth: 100,
+    width: 100,
     renderCell: (params) => {
       return (
         <Link
@@ -94,7 +93,7 @@ const CurrentlyDueGrid = () => {
   return (
     <div style={{ height: 700, width: "80%" }}>
       <div className="p-4 rounded-lg flex items-center justify-center">
-        <h1 className="text-2xl mb-2">{`Currently Due The Month Of ${months[currentMonth]}`}</h1>
+        <h1 className="font-extrabold text-transparent md:text-2xl lg:text-4xl bg-clip-text bg-gradient-to-r from-orange-400 to-orange-900">{`Currently Due The Month Of ${months[currentMonth]}`}</h1>
       </div>
       <div className="w-full h-[70vh]">
         <DataGrid

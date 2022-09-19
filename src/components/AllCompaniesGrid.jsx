@@ -7,9 +7,12 @@ const columns = [
   {
     field: "details",
     headerName: "DETAILS",
-    flex: 1,
-    minWidth: 150,
-    renderHeader: () => <strong>DETAILS</strong>,
+    width: 100,
+    renderHeader: () => (
+      <strong className="font-extrabold text-transparent text-[14px] bg-clip-text  bg-orange-400">
+        DETAILS
+      </strong>
+    ),
     renderCell: (params) => {
       return (
         <Link
@@ -21,27 +24,81 @@ const columns = [
       );
     },
   },
-  { field: "usdot", sortable: true, headerName: "USDOT" },
-  { field: "legal_name", minWidth: 150, headerName: "LEGAL NAME", flex: 1 },
+  {
+    field: "usdot",
+    sortable: true,
+    headerName: "USDOT",
+    renderHeader: () => (
+      <strong className="font-extrabold text-transparent text-[14px] bg-clip-text bg-gradient-to-r from-orange-400 to-orange-900">
+        USDOT
+      </strong>
+    ),
+  },
+  {
+    field: "legal_name",
+    minWidth: 150,
+    headerName: "LEGAL NAME",
+    flex: 1,
+    renderHeader: () => (
+      <strong className="font-extrabold text-transparent text-[14px] bg-clip-text bg-gradient-to-r from-orange-400 to-orange-900">
+        LEGAL NAME
+      </strong>
+    ),
+  },
   {
     field: "dba_name",
     headerName: "DBA NAME",
     minWidth: 150,
     flex: 1,
+    renderHeader: () => (
+      <strong className="font-extrabold text-transparent text-[14px] bg-clip-text bg-gradient-to-r from-orange-400 to-orange-900">
+        DBA NAME
+      </strong>
+    ),
   },
-  { field: "email", headerName: "EMAIL", minWidth: 150, flex: 1 },
-  { field: "address", minWidth: 150, headerName: "ADDRESS", flex: 1 },
+  {
+    field: "email",
+    headerName: "EMAIL",
+    minWidth: 150,
+    flex: 1,
+    renderHeader: () => (
+      <strong className="font-extrabold text-transparent text-[14px] bg-clip-text bg-gradient-to-r from-orange-400 to-orange-900">
+        EMAIL
+      </strong>
+    ),
+  },
+  {
+    field: "address",
+    minWidth: 150,
+    headerName: "ADDRESS",
+    flex: 1,
+    renderHeader: () => (
+      <strong className="font-extrabold text-transparent text-[14px] bg-clip-text bg-gradient-to-r from-orange-400 to-orange-900">
+        ADDRESS
+      </strong>
+    ),
+  },
   {
     field: "mcs_150_form_date",
     minWidth: 150,
     headerName: "MCS 150 FORM DATE",
     flex: 1,
+    renderHeader: () => (
+      <strong className="font-extrabold text-transparent text-[14px] bg-clip-text bg-gradient-to-r from-orange-400 to-orange-900">
+        MCS 150 FORM DATE
+      </strong>
+    ),
   },
   {
     field: "operating_status",
     minWidth: 150,
     headerName: "OPERATING STATUS",
     flex: 1,
+    renderHeader: () => (
+      <strong className="font-extrabold text-transparent text-[14px] bg-clip-text bg-gradient-to-r from-orange-400 to-orange-900">
+        OPERATING STATUS
+      </strong>
+    ),
   },
 ];
 
@@ -79,7 +136,7 @@ const AllCompaniesGrid = () => {
   return (
     <div className="w-full flex flex-col">
       <div className="p-4 rounded-lg flex items-center justify-center">
-        <h1 className="text-2xl mb-2">{`All Companies`}</h1>
+        <h1 className="font-extrabold text-transparent md:text-2xl lg:text-4xl bg-clip-text bg-gradient-to-r from-orange-400 to-orange-900">{`All Companies`}</h1>
       </div>
       <div className="mx-24 h-[80vh] flex-grow-[1]">
         <DataGrid

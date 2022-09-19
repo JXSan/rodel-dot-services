@@ -80,7 +80,7 @@ const UCRDueGrid = () => {
   return (
     <div style={{ height: 700, width: "80%" }}>
       <div className="p-4 rounded-lg flex items-center justify-center">
-        <h1 className="text-2xl mb-2">{`UCR Registration Due`}</h1>
+        <h1 className="font-extrabold text-transparent md:text-2xl lg:text-4xl bg-clip-text bg-gradient-to-r from-orange-400 to-orange-900">{`UCR Registration Due`}</h1>
       </div>
       {/* <input
         className="text-black p-4 bg-red-100 w-full h-10"
