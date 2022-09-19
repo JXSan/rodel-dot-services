@@ -33,6 +33,8 @@ import { useNavigate } from "react-router-dom";
 const AllSales = () => {
   const [rows, setRows] = useState([]);
   const [currentRow, setCurrentRow] = useState([]);
+  const [totalSales, setTotalSales] = useState(0);
+
   const columns = [
     {
       field: "details",
@@ -76,6 +78,14 @@ const AllSales = () => {
         .slice(0)
         .reverse()
         .map((transaction) => {
+          const transactionDate = new Date(
+            transaction.createdOn
+          ).toLocaleDateString();
+          const currentDate = new Date().toLocaleDateString();
+          if (transactionDate === currentDate) {
+            const amount = transaction.session?.amount_total / 100;
+            setTotalSales((prev) => (prev += amount));
+          }
           return {
             id: transaction?._id,
             service_type: transaction?.serviceType,
@@ -171,8 +181,8 @@ const AllSales = () => {
             </svg>
           </div>
           <div className="stat-title">Todays Total Sales</div>
-          <div className="stat-value">$323.32</div>
-          <div className="stat-desc">2 Sales Made | September 15, 2022</div>
+          <div className="stat-value">{`$${totalSales}`}</div>
+          <div className="stat-desc">{new Date().toLocaleDateString()}</div>
         </div>
       </div>
       <div className="w-full  px-4 py-2 rounded-lg flex flex-col">
