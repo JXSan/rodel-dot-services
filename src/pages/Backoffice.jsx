@@ -1,12 +1,9 @@
 import React from "react";
 import Sidebar from "../components/Sidebar";
-import Users from "./Users";
 import { Sales } from "./Sales";
 import Search from "./Search";
 import { Routes, Route } from "react-router-dom";
-import Success from "./Success";
 import CompanyDetails from "./CompanyDetails";
-import Dashboard from "./Dashboard";
 import AllCompanies from "./AllCompanies";
 import CurrentlyDue from "./CurrentlyDue";
 import PastDue from "./PastDue";
@@ -31,10 +28,7 @@ const Backoffice = () => {
               path="/companydetails/:id"
               element={<CompanyDetails />}
             ></Route>
-            <Route path="/users" element={<Users />}></Route>
             <Route path="/sales" element={<Sales />}></Route>
-            <Route path="/success" element={<Success />}></Route>
-            <Route path="/dashboard" element={<Dashboard />}></Route>
             <Route path="/allcompanies" element={<AllCompanies />}></Route>
             <Route path="/currentlyDue" element={<CurrentlyDue />}></Route>
             <Route path="/pastDue" element={<PastDue />}></Route>

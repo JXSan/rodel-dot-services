@@ -1,20 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { createCharge } from "../api/stripeTransactions";
 import { useUser } from "@clerk/clerk-react";
 import { getAllUserSales } from "../api/sales";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
-const PUBLIC_KEY =
-  "pk_test_51LeNhcBoa9DkGR7IafhBYHihQ87SRbsylWCr7GTcG8MWfUDOVRh73FeBsJowSsVc6NgyrXe5HCnrw48SdMcvssm500H3zPrjAx";
-
-const styles = {
-  activeButton:
-    "flex mx-6 hover:bg-gradient-to-tr hover:from-red-500 hover:to-red-900 hover:text-white shadow-md items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg bg-gradient-to-tr from-red-500 to-red-900 text-white shadow-md",
-  regularButton:
-    "flex mx-6 hover:bg-gradient-to-tr hover:from-red-500 hover:to-red-900 hover:text-white shadow-md items-center gap-4 text-sm text-gray-700 font-light px-4 py-3 rounded-lg",
-};
 
 export const Sales = () => {
   const [rows, setRows] = useState([]);
@@ -23,7 +11,6 @@ export const Sales = () => {
   const user = useUser();
   const { id } = user.user;
   const [currentRow, setCurrentRow] = useState([]);
-  const MCS150_STRIPE_PRODUCT_ID = "price_1LiqTaBoa9DkGR7IvDno57bI";
   const columns = [
     {
       field: "details",
@@ -62,15 +49,15 @@ export const Sales = () => {
         .slice(0)
         .reverse()
         .map((transaction) => {
-          // Run your totalSales logic here, before the below return statement.
-          // You can also filter based off todays date too
           const transactionDate = new Date(
             transaction.createdOn
           ).toLocaleDateString();
           const currentDate = new Date().toLocaleDateString();
           if (transactionDate === currentDate) {
-            const amount = 20;
-            setTotalSales((prev) => (prev += amount));
+            if (transaction.status == "Payment Successful") {
+              const amount = 20;
+              setTotalSales((prev) => (prev += amount));
+            }
           }
           return {
             id: transaction?._id,
@@ -192,16 +179,9 @@ export const Sales = () => {
               ></path>
             </svg>
           </div>
-          {totalSales && (
-            <>
-              <div className="stat-title">Todays Total Sales</div>
-              <div className="stat-value">{`$${totalSales}`}</div>
-              <div className="stat-desc">
-                {`${totalSales / 20} sales made on ` +
-                  new Date().toLocaleDateString()}
-              </div>
-            </>
-          )}
+          <div className="stat-title">Todays Total Sales</div>
+          <div className="stat-value">{`$${totalSales}`}</div>
+          <div className="stat-desc">{new Date().toLocaleDateString()}</div>
         </div>
       </div>
       <div className="w-full  px-4 py-2 rounded-lg flex flex-col">

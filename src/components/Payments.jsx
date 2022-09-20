@@ -24,7 +24,7 @@ const Payments = () => {
       try {
         const { id } = paymentMethod;
         const response = await axios.post(
-          "https://rodel-dot-services.herokuapp.com/api/stripe/payment",
+          "http://localhost:8081/api/stripe/payment",
           {
             amount: 149 * 100,
             id,

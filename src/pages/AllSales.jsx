@@ -1,34 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { createCharge } from "../api/stripeTransactions";
 import { useUser } from "@clerk/clerk-react";
 import { getAllSales } from "../api/sales";
 import { useNavigate } from "react-router-dom";
-
-// const columns = [
-//   { field: "service_type", headerName: "SERVICE TYPE", flex: 1 },
-//   { field: "amount_charged", headerName: "AMOUNT CHARGED", flex: 1 },
-//   { field: "created_on", headerName: "CREATED ON", flex: 1 },
-//   { field: "customer_name", headerName: "CUSTOMER NAME", flex: 1 },
-//   { field: "customer_email", headerName: "CUSTOMER EMAIL", flex: 1 },
-//   { field: "status", headerName: "STATUS", flex: 1 },
-//   // {
-//   //   field: "details",
-//   //   headerName: "DETAILS",
-//   //   flex: 1,
-//   //   renderCell: (params) => {
-//   //     console.log(params);
-//   //     return (
-//   //       <Link
-//   //         className="p-2 rounded-md bg-gray-100 shadow-lg hover:bg-gray-500"
-//   //         to={`/companydetails/${params.id}`}
-//   //       >
-//   //         Details
-//   //       </Link>
-//   //     );
-//   //   },
-//   // },
-// ];
 
 const AllSales = () => {
   const [rows, setRows] = useState([]);
@@ -67,8 +41,6 @@ const AllSales = () => {
   ];
   const navigate = useNavigate();
 
-  const redirectToCheckout = async () => {};
-
   const user = useUser();
   const { id } = user.user;
   const fetchAllSales = async () => {
@@ -83,8 +55,10 @@ const AllSales = () => {
           ).toLocaleDateString();
           const currentDate = new Date().toLocaleDateString();
           if (transactionDate === currentDate) {
-            const amount = transaction.session?.amount_total / 100;
-            setTotalSales((prev) => (prev += amount));
+            if (transaction.status == "Payment Successful") {
+              const amount = 20;
+              setTotalSales((prev) => (prev += amount));
+            }
           }
           return {
             id: transaction?._id,

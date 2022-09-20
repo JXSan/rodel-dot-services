@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getAllStripeTransactions = async () => {
   const response = await axios
-    .get(`https://rodel-dot-services.herokuapp.com/api/stripe/allPayments`)
+    .get(`http://localhost:8081/api/stripe/allPayments`)
     .catch((err) => {
       console.log(err);
     });
@@ -17,7 +17,7 @@ const createCharge = async (
   ucrFormData
 ) => {
   const response = await axios
-    .post("https://rodel-dot-services.herokuapp.com/api/stripe/payment", {
+    .post("http://localhost:8081/api/stripe/payment", {
       productId: productId,
       user: user.user,
       company: companyId,

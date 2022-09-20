@@ -2,7 +2,7 @@ import axios from "axios";
 
 const getAllUsers = async () => {
   const response = await axios
-    .get("https://rodel-dot-services.herokuapp.com/api/users/all")
+    .get("http://localhost:8081/api/users/all")
     .catch((err) => {
       console.log(err);
     });
@@ -11,10 +11,7 @@ const getAllUsers = async () => {
 
 const createNewUser = async (userObject) => {
   const response = await axios
-    .post(
-      "https://rodel-dot-services.herokuapp.com/api/users/createUser",
-      userObject
-    )
+    .post("http://localhost:8081/api/users/createUser", userObject)
     .catch((err) => {
       console.log(err);
     });
@@ -23,10 +20,7 @@ const createNewUser = async (userObject) => {
 
 const updateUser = async (id, userObject) => {
   const response = await axios
-    .put(
-      `https://rodel-dot-services.herokuapp.com/api/users/updateUser/${id}`,
-      userObject
-    )
+    .put(`http://localhost:8081/api/users/updateUser/${id}`, userObject)
     .catch((err) => {
       console.log(err);
     });
@@ -35,7 +29,7 @@ const updateUser = async (id, userObject) => {
 
 const deleteUser = async (id) => {
   const response = await axios
-    .get(`https://rodel-dot-services.herokuapp.com/api/users/deleteUser/${id}`)
+    .get(`http://localhost:8081/api/users/deleteUser/${id}`)
     .catch((err) => {
       console.log(err);
     });
@@ -44,7 +38,7 @@ const deleteUser = async (id) => {
 
 const getUser = async (email) => {
   const response = await axios
-    .post(`https://rodel-dot-services.herokuapp.com/api/users/getUser`, {
+    .post(`http://localhost:8081/api/users/getUser`, {
       email: email,
     })
     .catch((err) => {

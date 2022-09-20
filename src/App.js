@@ -1,29 +1,8 @@
 import "./App.css";
-import { useEffect, useState } from "react";
-import Sidebar from "./components/Sidebar";
-import Search from "./pages/Search";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import AllCompanies from "./pages/AllCompanies";
-import CurrentlyDue from "./pages/CurrentlyDue";
-import CompanyDetails from "./pages/CompanyDetails";
-import PastDue from "./pages/PastDue";
-import { Sales } from "./pages/Sales";
+import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements, CardElement } from "@stripe/react-stripe-js";
-import { useStateValue } from "./StateProvider";
-import Users from "./pages/Users";
-import { auth } from "./config/firebase";
-import {
-  ClerkProvider,
-  SignedIn,
-  SignedOut,
-  UserButton,
-  useUser,
-  RedirectToSignIn,
-  SignIn,
-  UserProfile,
-  SignOutButton,
-} from "@clerk/clerk-react";
+import { Elements } from "@stripe/react-stripe-js";
+import { ClerkProvider, SignedIn, SignedOut, SignIn } from "@clerk/clerk-react";
 import Backoffice from "./pages/Backoffice";
 
 const styles = {

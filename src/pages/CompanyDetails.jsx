@@ -17,19 +17,15 @@ const CompanyDetails = () => {
   const [company, setCompany] = useState([]);
   const { id } = useParams(); // Company ID
   const user = useUser();
-  const userid = user.user.id;
   const [isCurrentlyDue, setIsCurrentlyDue] = useState(false);
   const [isPastDue, setIsPastDue] = useState(false);
   const [isUCRDue, setIsUCRDue] = useState(false);
-  const [blacklist, setBlacklist] = useState(false);
   const [registrationNumber, setRegistrationNumber] = useState("");
   const [allQueues, setAllQueue] = useState([]);
   const [currentQueue, setCurrentQueue] = useState([]);
   const [transaction, setTransaction] = useState([]);
   const date = new Date();
   const navigate = useNavigate();
-
-  console.log(user);
 
   const MCS150_STRIPE_PRODUCT_ID = "price_1LjmM9Boa9DkGR7IaoPfMpWv";
   const OTHER_PRODUCT_ID = "price_1LjmMKBoa9DkGR7IAxQTD9Lv";
@@ -223,7 +219,6 @@ const CompanyDetails = () => {
       id,
       "MCS150 Registration/Update"
     );
-    console.log(paymentURL);
     toast.success("Company successfully blacklisted.");
     window.open(paymentURL, "_blank");
   };
