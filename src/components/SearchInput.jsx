@@ -21,7 +21,6 @@ const SearchInput = () => {
     const response = await getAllCompanies();
     if (response) {
       setCompanies(response);
-      console.log(response);
     }
   };
 
@@ -32,7 +31,6 @@ const SearchInput = () => {
   const filtered = !searchTerm
     ? []
     : companies?.filter((company) => {
-        console.log(company);
         const { usdot, email, dba_name } = company;
         if (
           (usdot != undefined && usdot.includes(searchTerm)) ||
@@ -45,7 +43,6 @@ const SearchInput = () => {
 
   useEffect(() => {
     fetchCompanies();
-    console.log(companies);
   }, []);
 
   return (
