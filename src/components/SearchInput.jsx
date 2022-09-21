@@ -19,7 +19,10 @@ const SearchInput = () => {
 
   const fetchCompanies = async () => {
     const response = await getAllCompanies();
-    if (response) setCompanies(response);
+    if (response) {
+      setCompanies(response);
+      console.log(response);
+    }
   };
 
   const handleSearchChange = (e) => {
@@ -29,15 +32,20 @@ const SearchInput = () => {
   const filtered = !searchTerm
     ? []
     : companies?.filter((company) => {
-        return (
-          company?.usdot.toLowerCase().includes(searchTerm) ||
-          company?.email.toLowerCase().includes(searchTerm) ||
-          company?.dba_name.toLowerCase().includes(searchTerm)
-        );
+        console.log(company);
+        const { usdot, email, dba_name } = company;
+        if (
+          (usdot != undefined && usdot.includes(searchTerm)) ||
+          (email != undefined && email.toLowerCase().includes(searchTerm)) ||
+          (dba_name != undefined && dba_name.toLowerCase().includes(searchTerm))
+        ) {
+          return company;
+        }
       });
 
   useEffect(() => {
     fetchCompanies();
+    console.log(companies);
   }, []);
 
   return (
@@ -56,7 +64,7 @@ const SearchInput = () => {
       {/* Search DOT Results */}
       <div id="search-results" className={styles.searchResultsWrapper}>
         <ul className={styles.searchResultsListWrapper}>
-          {filtered.map((company) => {
+          {filtered?.map((company) => {
             return (
               <Link to={`/companydetails/${company._id}`}>
                 <li key={company?._id} className={styles.searchResultItem}>
