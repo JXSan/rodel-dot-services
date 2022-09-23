@@ -31,11 +31,13 @@ const SearchInput = () => {
   const filtered = !searchTerm
     ? []
     : companies?.filter((company) => {
-        const { usdot, email, dba_name } = company;
+        const { usdot, email, dba_name, phone } = company;
         if (
           (usdot != undefined && usdot.includes(searchTerm)) ||
           (email != undefined && email.toLowerCase().includes(searchTerm)) ||
-          (dba_name != undefined && dba_name.toLowerCase().includes(searchTerm))
+          (dba_name != undefined &&
+            dba_name.toLowerCase().includes(searchTerm)) ||
+          (phone != undefined && phone.includes(searchTerm))
         ) {
           return company;
         }
