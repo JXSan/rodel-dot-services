@@ -118,11 +118,15 @@ const CompanyDetails = () => {
 
     const mc150FormDate = new Date(company?.mcs_150_form_date);
     const mc150_year = parseInt(mc150FormDate.getFullYear());
-    const mc150_month = parseInt(mc150FormDate.getMonth());
+    const mc150_month = parseInt(mc150FormDate.getMonth() + 1);
     const dotData = company?.usdot.slice(-2);
     const dotYear = parseInt(dotData?.split("")[0]);
-    const dotMonth = parseInt(dotData?.split("")[1]);
+    let dotMonth = parseInt(dotData?.split("")[1]);
     if (dotMonth === 0) dotMonth = 10;
+
+    console.log(`MCS150 Month: ${mc150_month}`);
+    console.log(`Current Month: ${currentMonth}`);
+    console.log(`DOT Month: ${dotMonth}`);
 
     if (dotMonth == currentMonth) {
       if (
@@ -147,10 +151,10 @@ const CompanyDetails = () => {
 
     const mc150FormDate = new Date(company?.mcs_150_form_date);
     const mc150_year = parseInt(mc150FormDate.getFullYear());
-    const mc150_month = parseInt(mc150FormDate.getMonth());
+    const mc150_month = parseInt(mc150FormDate.getMonth() + 1);
     const dotData = company?.usdot.slice(-2);
     const dotYear = parseInt(dotData?.split("")[0]);
-    const dotMonth = parseInt(dotData?.split("")[1]);
+    let dotMonth = parseInt(dotData?.split("")[1]);
     if (dotMonth === 0) dotMonth = 10;
 
     // Enter if the DOT month is after the current month

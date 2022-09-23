@@ -11,7 +11,9 @@ const getCompanyById = async (id) => {
 
 const updateAllCurrentlyDueCompanies = async () => {
   const response = await axios
-    .get("http://localhost:8081/api/companysnapshot/updateAllCurrentlyDue")
+    .get(
+      "https://rodel-dot-services.herokuapp.com/api/companysnapshot/updateAllCurrentlyDue"
+    )
     .catch((err) => {
       console.log(err);
     });
