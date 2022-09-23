@@ -122,6 +122,7 @@ const CompanyDetails = () => {
     const dotData = company?.usdot.slice(-2);
     const dotYear = parseInt(dotData?.split("")[0]);
     const dotMonth = parseInt(dotData?.split("")[1]);
+    if (dotMonth === 0) dotMonth = 10;
 
     if (dotMonth == currentMonth) {
       if (
@@ -150,6 +151,7 @@ const CompanyDetails = () => {
     const dotData = company?.usdot.slice(-2);
     const dotYear = parseInt(dotData?.split("")[0]);
     const dotMonth = parseInt(dotData?.split("")[1]);
+    if (dotMonth === 0) dotMonth = 10;
 
     // Enter if the DOT month is after the current month
     if (dotMonth < currentMonth) {
@@ -188,6 +190,7 @@ const CompanyDetails = () => {
     const response = await getCompanyById(id);
     if (response) {
       setCompany(response);
+      console.log(response);
 
       // Check to see if company is currently due, past due and/or needs UCR registration.
       checkIsCurrentlyDue(response);
@@ -323,7 +326,7 @@ const CompanyDetails = () => {
                     </div>
                     <div className=" rounded-lg  text-black bg-gray-200">
                       {item?.mcs_150_form_date
-                        ? new Date(item.mcs_150_form_date).toLocaleDateString()
+                        ? new Date(item.mcs_150_form_date).toDateString()
                         : "Not available"}
                     </div>
                   </div>

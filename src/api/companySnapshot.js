@@ -9,6 +9,15 @@ const getCompanyById = async (id) => {
   if (response) return response.data.results;
 };
 
+const updateAllCurrentlyDueCompanies = async () => {
+  const response = await axios
+    .get("http://localhost:8081/api/companysnapshot/updateAllCurrentlyDue")
+    .catch((err) => {
+      console.log(err);
+    });
+  if (response) return response.data.results;
+};
+
 const getAllCompanies = async () => {
   const response = await axios
     .get("https://rodel-dot-services.herokuapp.com/api/companysnapshot/all")
@@ -92,4 +101,5 @@ export {
   getCompanyById,
   blacklistCompany,
   getLatestFromSafer,
+  updateAllCurrentlyDueCompanies,
 };
