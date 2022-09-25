@@ -76,16 +76,18 @@ const CurrentlyDueGrid = () => {
   const currentMonth = date.getMonth();
 
   const handleRefreshAllCurrentlyDue = async () => {
-    const allUpdatedCompanies = await updateAllCurrentlyDueCompanies();
-    if (allUpdatedCompanies) {
-      toast.success(
-        "All currently due successfully updated. Refreshing page..."
-      );
-      setTimeout(() => {
-        setAllCompanies();
-        window.location.reload();
-      }, 1000);
-    }
+    const allUpdatedCompanies = updateAllCurrentlyDueCompanies();
+    toast.promise(allUpdatedCompanies, {
+      loading: "Updating all companies, this may take a minute...",
+      success: () => {
+        toast.success("Succesfully up dated all companies. Refreshing page...");
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000);
+      },
+      error:
+        "Unable to refresh all currently due companies. Please wait a minute, refresh the page and try again.",
+    });
   };
 
   const fetchAllCompanies = async () => {
@@ -118,12 +120,12 @@ const CurrentlyDueGrid = () => {
     <div style={{ height: 700, width: "80%" }}>
       <div className="p-4 rounded-lg flex items-center justify-between">
         <h1 className="font-extrabold text-transparent md:text-2xl lg:text-4xl bg-clip-text bg-gradient-to-r from-orange-400 to-orange-900">{`Currently Due The Month Of ${months[currentMonth]}`}</h1>
-        {/* <button
+        <button
           onClick={handleRefreshAllCurrentlyDue}
           className="p-1 bg-gray-400 shadow-xl text-white font-light rounded drop-shadow-md hover:bg-orange-500"
         >
           Refresh All Currently Due
-        </button> */}
+        </button>
       </div>
       <div className="w-full h-[70vh]">
         <DataGrid
