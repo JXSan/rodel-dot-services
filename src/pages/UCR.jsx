@@ -20,7 +20,7 @@ const months = [
 ];
 
 const fleetMapping = {
-  "0-2": { amount: 145, paymentId: "price_1LjmMEBoa9DkGR7IlAwkXPYW" },
+  "0-2": { amount: 179, paymentId: "price_1LjmMEBoa9DkGR7IlAwkXPYW" },
   "3-5": { amount: 299, paymentId: "price_1LjmMEBoa9DkGR7IgoGJpsh5" },
   "6-20": { amount: 549, paymentId: "price_1LjmMEBoa9DkGR7I9FEiaYg5" },
   "21-100": { amount: 1429, paymentId: "price_1LjmMEBoa9DkGR7ILXgpAYZh" },
