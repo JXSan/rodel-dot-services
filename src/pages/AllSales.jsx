@@ -56,7 +56,7 @@ const AllSales = () => {
           const currentDate = new Date().toLocaleDateString();
           if (transactionDate === currentDate) {
             if (transaction.status == "Payment Successful") {
-              const amount = 20;
+              const amount = transaction.session.amount_total / 100;
               setTotalSales((prev) => (prev += amount));
             }
           }
