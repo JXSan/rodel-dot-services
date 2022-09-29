@@ -108,6 +108,18 @@ const Sidebar = () => {
               </NavLink>
             </li>
           )}
+          {isAdmin && (
+            <li className="rounded-lg ">
+              <NavLink
+                to="/addcompany"
+                className={({ isActive }) =>
+                  isActive ? styles.activeButton : styles.regularButton
+                }
+              >
+                Add Company
+              </NavLink>
+            </li>
+          )}
           {/* {isAdmin && (
             <li className="rounded-lg ">
               <NavLink

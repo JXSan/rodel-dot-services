@@ -1,5 +1,19 @@
 import axios from "axios";
 
+const createCompanyByUsdot = async (usdot) => {
+  const response = await axios
+    .post(
+      `https://rodel-dot-services.herokuapp.com/api/companysnapshot/createCompanyByUsdot`,
+      {
+        usdot: usdot,
+      }
+    )
+    .catch((err) => {
+      console.log(err);
+    });
+  if (response) return response.data.results;
+};
+
 const getCompanyById = async (id) => {
   const response = await axios
     .get(`https://rodel-dot-services.herokuapp.com/api/companysnapshot/${id}`)
@@ -104,4 +118,5 @@ export {
   blacklistCompany,
   getLatestFromSafer,
   updateAllCurrentlyDueCompanies,
+  createCompanyByUsdot,
 };

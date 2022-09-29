@@ -11,6 +11,7 @@ import UCR from "./UCR";
 import UCRDue from "./UCRDue";
 import AllSales from "./AllSales";
 import { useUser } from "@clerk/clerk-react";
+import AddCompany from "./AddCompany";
 
 const Backoffice = () => {
   const user = useUser();
@@ -35,6 +36,9 @@ const Backoffice = () => {
             <Route path="/ucr/:id" element={<UCR />}></Route>
             <Route path="/ucrdue" element={<UCRDue />}></Route>
             {isAdmin && <Route path="/allsales" element={<AllSales />}></Route>}
+            {isAdmin && (
+              <Route path="/addcompany" element={<AddCompany />}></Route>
+            )}
           </Routes>
         </div>
         {/* Routes */}
