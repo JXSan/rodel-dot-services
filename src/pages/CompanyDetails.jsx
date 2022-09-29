@@ -113,7 +113,7 @@ const CompanyDetails = () => {
   const checkIsCurrentlyDue = (company) => {
     company = company[0];
     const currentMonth = parseInt(date.getMonth()) + 1;
-    const currentYear = parseInt(date.getFullYear().toString().slice(-2));
+    const currentYear = date.getFullYear();
     const isEvenYear = currentYear % 2 == 0;
 
     const mc150FormDate = new Date(company?.mcs_150_form_date);
@@ -123,20 +123,18 @@ const CompanyDetails = () => {
     const dotYear = parseInt(dotData?.split("")[0]);
     let dotMonth = parseInt(dotData?.split("")[1]);
     if (dotMonth === 0) dotMonth = 10;
-
-    console.log(`MCS150 Month: ${mc150_month}`);
-    console.log(`Current Month: ${currentMonth}`);
-    console.log(`DOT Month: ${dotMonth}`);
+    const minYearAccepted = new Date().getFullYear() - 4;
 
     if (dotMonth == currentMonth) {
       if (
         (isEvenYear && dotYear % 2 == 0) ||
         (!isEvenYear && dotYear % 2 != 0)
       ) {
-        if (mc150_month) {
-          if (mc150_month < currentMonth) {
-            const minYearAccepted = new Date().getFullYear() - 4;
-            if (mc150_year >= minYearAccepted) setIsCurrentlyDue(true);
+        if (mc150_month && mc150_year >= minYearAccepted) {
+          if (mc150_year < currentYear) {
+            setIsCurrentlyDue(true);
+          } else if (mc150_year == currentYear && mc150_month < currentMonth) {
+            setIsCurrentlyDue(true);
           }
         }
       }
@@ -170,9 +168,10 @@ const CompanyDetails = () => {
           //(Might need to add a limit here for MC150 year, to only go 6 years back.)
           const minYearAccepted = currentYear - 4;
           if (
-            mc150_month < currentMonth &&
-            mc150_year >= minYearAccepted &&
-            mc150_year != currentYear
+            (mc150_month < currentMonth &&
+              mc150_year >= minYearAccepted &&
+              mc150_year != currentYear) ||
+            (mc150_year < currentYear && mc150_year >= minYearAccepted)
           )
             setIsPastDue(true);
         }
