@@ -36,16 +36,18 @@ const Sidebar = () => {
               Search
             </NavLink>
           </li>
-          {/* <li className="rounded-lg">
-            <NavLink
-              to="/dashboard"
-              className={({ isActive }) =>
-                isActive ? styles.activeButton : styles.regularButton
-              }
-            >
-              Dashboard
-            </NavLink>
-          </li> */}
+          {isAdmin && (
+            <li className="rounded-lg ">
+              <NavLink
+                to="/addcompany"
+                className={({ isActive }) =>
+                  isActive ? styles.activeButton : styles.regularButton
+                }
+              >
+                Add Company
+              </NavLink>
+            </li>
+          )}
           <li className="rounded-lg">
             <NavLink
               to="/allcompanies"
@@ -108,30 +110,6 @@ const Sidebar = () => {
               </NavLink>
             </li>
           )}
-          {isAdmin && (
-            <li className="rounded-lg ">
-              <NavLink
-                to="/addcompany"
-                className={({ isActive }) =>
-                  isActive ? styles.activeButton : styles.regularButton
-                }
-              >
-                Add Company
-              </NavLink>
-            </li>
-          )}
-          {/* {isAdmin && (
-            <li className="rounded-lg ">
-              <NavLink
-                to="/users"
-                className={({ isActive }) =>
-                  isActive ? styles.activeButton : styles.regularButton
-                }
-              >
-                Users
-              </NavLink>
-            </li>
-          )} */}
         </ul>
       </div>
 
