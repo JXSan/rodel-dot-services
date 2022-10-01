@@ -75,7 +75,7 @@ const AddCompany = () => {
       </div>
       <div className="w-full flex flex-col items-center justify-center">
         <h1 className="font-extrabold text-transparent md:text-2xl lg:text-4xl bg-clip-text bg-gradient-to-r from-orange-400 to-orange-900">
-          Fetch New Companies
+          SCRAPE FROM SAFER
         </h1>
         <div className="flex flex-col items-center w-full  pt-6 sm:justify-center sm:pt-0 bg-gray-50">
           <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:max-w-lg sm:rounded-lg">
@@ -85,7 +85,7 @@ const AddCompany = () => {
                   htmlFor="usdot"
                   className="block text-sm font-medium text-gray-700 undefined"
                 >
-                  SEARCH STRING
+                  SEARCH
                 </label>
                 <div className="flex flex-col items-start">
                   <input
