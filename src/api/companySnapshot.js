@@ -1,5 +1,20 @@
 import axios from "axios";
 
+const getNewCompanies = async (letter, amountToScrape) => {
+  const response = await axios
+    .post(
+      `https://rodel-dot-services.herokuapp.com/api/companysnapshot/getNewCompanies`,
+      {
+        letter: letter,
+        amountToScrape: amountToScrape,
+      }
+    )
+    .catch((err) => {
+      console.log(err);
+    });
+  if (response) return response.data.results;
+};
+
 const createCompanyByUsdot = async (usdot) => {
   const response = await axios
     .post(
@@ -119,4 +134,5 @@ export {
   getLatestFromSafer,
   updateAllCurrentlyDueCompanies,
   createCompanyByUsdot,
+  getNewCompanies,
 };
