@@ -18,10 +18,13 @@ const getNewCompanies = async (letter, amountToScrape) => {
 };
 const setUcrCurrentStatus = async (id, status) => {
   const response = await axios
-    .post(`http://localhost:8081/api/companysnapshot/setUcrCurrentStatus`, {
-      id: id,
-      status: status,
-    })
+    .post(
+      `https://rodel-dot-services.herokuapp.com/api/companysnapshot/setUcrCurrentStatus`,
+      {
+        id: id,
+        status: status,
+      }
+    )
     .catch((err) => {
       console.log(err);
     });
