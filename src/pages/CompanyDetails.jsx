@@ -4,6 +4,7 @@ import {
   getCompanyById,
   blacklistCompany,
   getLatestFromSafer,
+  setUcrCurrentStatus,
 } from "../api/companySnapshot";
 import NotesHistory from "../components/Notes/NotesHistory";
 import { createCharge } from "../api/stripeTransactions";
@@ -218,6 +219,11 @@ const CompanyDetails = () => {
     window.location.reload();
   };
 
+  const handleUcrCurrentButton = async (status) => {
+    await setUcrCurrentStatus(id, status);
+    window.location.reload();
+  };
+
   const handleMCSUpdate = async () => {
     const { paymentURL } = await createCharge(
       user,
@@ -399,6 +405,17 @@ const CompanyDetails = () => {
                           BLACKLIST
                         </button>
                       )}
+                      {item.ucrCurrent == "false" && (
+                        <button
+                          onClick={() => {
+                            handleUcrCurrentButton(true);
+                          }}
+                          type="button"
+                          className="text-[15px] text-white p-2 bg-green-600 rounded-lg"
+                        >
+                          SWITCH UCR TO CURRENT
+                        </button>
+                      )}
                     </div>
                     <hr />
 
@@ -423,6 +440,17 @@ const CompanyDetails = () => {
                         <label className="text-sm text-white text-center font-bold px-1 bg-black rounded-lg">
                           Blacklisted
                         </label>
+                      )}
+                      {item.ucrCurrent == "true" && (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleUcrCurrentButton(false);
+                          }}
+                          className="text-sm text-black text-center font-bold px-1 bg-green-600 rounded-lg"
+                        >
+                          UCR IS CURRENT
+                        </button>
                       )}
                     </div>
                   </div>

@@ -1,5 +1,7 @@
 import axios from "axios";
 
+//setUcrCurrentStatus
+
 const getNewCompanies = async (letter, amountToScrape) => {
   const response = await axios
     .post(
@@ -9,6 +11,17 @@ const getNewCompanies = async (letter, amountToScrape) => {
         amountToScrape: amountToScrape,
       }
     )
+    .catch((err) => {
+      console.log(err);
+    });
+  if (response) return response.data.results;
+};
+const setUcrCurrentStatus = async (id, status) => {
+  const response = await axios
+    .post(`http://localhost:8081/api/companysnapshot/setUcrCurrentStatus`, {
+      id: id,
+      status: status,
+    })
     .catch((err) => {
       console.log(err);
     });
@@ -135,4 +148,5 @@ export {
   updateAllCurrentlyDueCompanies,
   createCompanyByUsdot,
   getNewCompanies,
+  setUcrCurrentStatus,
 };

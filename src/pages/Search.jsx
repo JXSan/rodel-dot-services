@@ -32,7 +32,7 @@ const Search = () => {
           <Link to="/pastDue">
             <button className={styles.button}>PAST DUE</button>
           </Link>
-          <Link to="/ucr">
+          <Link to="/ucrdue">
             <button className={styles.button}>UCR</button>
           </Link>
         </div>
