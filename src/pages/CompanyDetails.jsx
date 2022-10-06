@@ -405,7 +405,7 @@ const CompanyDetails = () => {
                           BLACKLIST
                         </button>
                       )}
-                      {item.ucrCurrent == "false" && (
+                      {(item.ucrCurrent == "false" || !item.ucrCurrent) && (
                         <button
                           onClick={() => {
                             handleUcrCurrentButton(true);
