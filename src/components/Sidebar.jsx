@@ -7,14 +7,14 @@ const styles = {
   wrapper: " bg-white flex flex-col shadow-xl items-center border-r",
   menuOptionsWrapper: "flex flex-col h-3/4 justify-evenly w-full",
   menuOptionButton:
-    "border active:bg-blue-400 mx-2 gray-700 font-light p-3 rounded-lg hover:bg-gradient-to-tr hover:from-orange-500 hover:to-orange-900 hover:text-white",
+    "border active:bg-blue-400 mx-2 gray-700 font-light p-1 rounded-lg hover:bg-gradient-to-tr hover:from-orange-500 hover:to-orange-900 hover:text-white",
   signOutContainer: "flex h-1/4 justify-end items-end items-center w-full",
   signOutButton:
     "flex hover:bg-gradient-to-tr hover:from-orange-500 hover:to-orange-900 hover:text-white shadow-md gap-4 text-sm text-gray-700 font-light px-4 py-1 rounded-lg",
   activeButton:
-    "flex mx-6 hover:bg-gradient-to-tr hover:from-orange-500 hover:to-orange-900 hover:text-white shadow-md items-center gap-4 text-sm text-gray-700 font-light p-2 rounded-lg bg-gradient-to-tr from-orange-500 to-orange-900 text-white shadow-md",
+    "flex mx-6 text-white hover:bg-gradient-to-tr hover:from-orange-500 hover:to-orange-900 hover:text-white shadow-md items-center gap-4 text-sm font-light p-1 rounded-lg bg-gradient-to-tr from-orange-500 to-orange-900 text-white shadow-md",
   regularButton:
-    "flex mx-6 hover:bg-gradient-to-tr hover:from-orange-500 hover:to-orange-900 hover:text-white shadow-md items-center gap-4 text-sm text-gray-700 font-light p-2 rounded-lg",
+    "flex mx-6 hover:bg-gradient-to-tr hover:from-orange-500 hover:to-orange-900 hover:text-white shadow-md items-center gap-4 text-sm text-gray-700 font-light p-1 rounded-lg",
 };
 
 const Sidebar = () => {
@@ -58,6 +58,18 @@ const Sidebar = () => {
               All Companies
             </NavLink>
           </li>
+          {isAdmin && (
+            <li className="rounded-lg ">
+              <NavLink
+                to="/emailsettings"
+                className={({ isActive }) =>
+                  isActive ? styles.activeButton : styles.regularButton
+                }
+              >
+                Email Settings
+              </NavLink>
+            </li>
+          )}
           <li className="rounded-lg ">
             <NavLink
               to="/currentlyDue"

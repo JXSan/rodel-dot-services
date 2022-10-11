@@ -12,6 +12,7 @@ import UCRDue from "./UCRDue";
 import AllSales from "./AllSales";
 import { useUser } from "@clerk/clerk-react";
 import AddCompany from "./AddCompany";
+import EmailSettings from "./EmailSettings";
 
 const Backoffice = () => {
   const user = useUser();
@@ -35,6 +36,7 @@ const Backoffice = () => {
             <Route path="/pastDue" element={<PastDue />}></Route>
             <Route path="/ucr/:id" element={<UCR />}></Route>
             <Route path="/ucrdue" element={<UCRDue />}></Route>
+            <Route path="/emailsettings" element={<EmailSettings />}></Route>
             {isAdmin && <Route path="/allsales" element={<AllSales />}></Route>}
             {isAdmin && (
               <Route path="/addcompany" element={<AddCompany />}></Route>
