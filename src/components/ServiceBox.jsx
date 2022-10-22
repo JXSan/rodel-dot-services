@@ -20,7 +20,7 @@ const ServiceBox = ({ img, title, desc }) => {
           <p className="text-black-900 text-base font-normal">{desc}</p>
           <a
             href="#footer"
-            className="absolute mt-5 bottom-0 leading-[1] pl-10 flex justify-center items-center gap-3 right-0 readmore bg-orange h-[50px] w-[200px] text-white text-[20px]"
+            className="absolute mt-5 bottom-0 leading-[1] pl-10 flex justify-center items-center gap-3 right-0 readmore bg-orange-400 hover:bg-orange-500 h-[50px] w-[200px] text-white text-[20px]"
           >
             Contact Us{" "}
             <FontAwesomeIcon icon={faArrowRight} className="text-[20px] pt-1" />
