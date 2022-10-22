@@ -16,22 +16,22 @@ const Services = () => {
         </div>
         <div className="mt-[50px] lg:mt-[100px] grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  place-items-center gap-y-52 w-full">
           <ServiceBox
-            img={"/service.jpg"}
+            img={"/sunset-truck.png"}
             title="Biennial Update/Deactivation"
             desc="$149"
           />
           <ServiceBox
-            img={"/service.jpg"}
+            img={"/sunset-truck.png"}
             title="UCR (Unified Carrier Registration)"
             desc="Price starting at $179"
           />
           <ServiceBox
-            img={"/service.jpg"}
+            img={"/sunset-truck.png"}
             title="New DOT Number(s)"
             desc="Call us for more details"
           />
           <ServiceBox
-            img={"/service.jpg"}
+            img={"/sunset-truck.png"}
             title=" MC Number(s) Authority"
             desc="Call us for more details"
           />
