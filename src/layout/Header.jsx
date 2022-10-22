@@ -56,12 +56,14 @@ const Header = () => {
           </SignedOut>
           <SignedIn>
             <p>Logged in as - {emailAddress}</p>
-            <Link
-              className="p-2 rounded-sm bg-orange-500  text-orange hover:bg-orange-400 drop-shadow-md"
-              to="/backoffice"
-            >
-              Enter Backoffice
-            </Link>
+            {user?.user?.unsafeMetadata.status === "active" && (
+              <Link
+                className="p-2 rounded-sm bg-orange-500  text-orange hover:bg-orange-400 drop-shadow-md"
+                to="/backoffice"
+              >
+                Enter Backoffice
+              </Link>
+            )}
           </SignedIn>
         </p>
       </div>
