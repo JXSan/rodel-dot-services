@@ -1,6 +1,6 @@
 import React from "react";
 import Logo from "../assets/img/rodl-logo.png";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { SignOutButton, useUser, UserButton } from "@clerk/clerk-react";
 
 const styles = {
@@ -12,9 +12,9 @@ const styles = {
   signOutButton:
     "flex hover:bg-gradient-to-tr hover:from-orange-500 hover:to-orange-900 hover:text-white shadow-md gap-4 text-sm text-gray-700 font-light px-4 py-1 rounded-lg",
   activeButton:
-    "flex mx-6 text-white hover:bg-gradient-to-tr hover:from-orange-500 hover:to-orange-900 hover:text-white shadow-md items-center gap-4 text-sm font-light p-1 rounded-lg bg-gradient-to-tr from-orange-500 to-orange-900 text-white shadow-md",
+    "flex mx-6 text-white hover:bg-gradient-to-tr hover:from-orange-500 hover:to-orange-900 hover:text-white shadow-md justify-center items-center gap-4 text-sm font-light p-1 rounded-lg bg-gradient-to-tr from-orange-500 to-orange-900 text-white shadow-md",
   regularButton:
-    "flex mx-6 hover:bg-gradient-to-tr hover:from-orange-500 hover:to-orange-900 hover:text-white shadow-md items-center gap-4 text-sm text-gray-700 font-light p-1 rounded-lg",
+    "flex mx-6 hover:bg-gradient-to-tr hover:from-orange-500 hover:to-orange-900 hover:text-white shadow-md items-center justify-center gap-4 text-sm text-gray-700 font-light p-1 rounded-lg",
 };
 
 const Sidebar = () => {
@@ -28,7 +28,7 @@ const Sidebar = () => {
         <ul className="flex-col min-w-full flex list-none space-y-4">
           <li className="rounded-lg my-4">
             <NavLink
-              to="/"
+              to="/backoffice/"
               className={({ isActive }) =>
                 isActive ? styles.activeButton : styles.regularButton
               }
@@ -39,7 +39,7 @@ const Sidebar = () => {
           {isAdmin && (
             <li className="rounded-lg ">
               <NavLink
-                to="/addcompany"
+                to="/backoffice/addcompany"
                 className={({ isActive }) =>
                   isActive ? styles.activeButton : styles.regularButton
                 }
@@ -50,7 +50,7 @@ const Sidebar = () => {
           )}
           <li className="rounded-lg">
             <NavLink
-              to="/allcompanies"
+              to="/backoffice/allcompanies"
               className={({ isActive }) =>
                 isActive ? styles.activeButton : styles.regularButton
               }
@@ -61,7 +61,7 @@ const Sidebar = () => {
           {isAdmin && (
             <li className="rounded-lg ">
               <NavLink
-                to="/emailsettings"
+                to="/backoffice/emailsettings"
                 className={({ isActive }) =>
                   isActive ? styles.activeButton : styles.regularButton
                 }
@@ -72,7 +72,7 @@ const Sidebar = () => {
           )}
           <li className="rounded-lg ">
             <NavLink
-              to="/currentlyDue"
+              to="/backoffice/currentlyDue"
               className={({ isActive }) =>
                 isActive ? styles.activeButton : styles.regularButton
               }
@@ -82,7 +82,7 @@ const Sidebar = () => {
           </li>
           <li className="rounded-lg ">
             <NavLink
-              to="/pastDue"
+              to="/backoffice/pastDue"
               className={({ isActive }) =>
                 isActive ? styles.activeButton : styles.regularButton
               }
@@ -92,7 +92,7 @@ const Sidebar = () => {
           </li>
           <li className="rounded-lg ">
             <NavLink
-              to="/ucrdue"
+              to="/backoffice/ucrdue"
               className={({ isActive }) =>
                 isActive ? styles.activeButton : styles.regularButton
               }
@@ -102,7 +102,7 @@ const Sidebar = () => {
           </li>
           <li className="rounded-lg ">
             <NavLink
-              to="/sales"
+              to="/backoffice/sales"
               className={({ isActive }) =>
                 isActive ? styles.activeButton : styles.regularButton
               }
@@ -113,7 +113,7 @@ const Sidebar = () => {
           {isAdmin && (
             <li className="rounded-lg ">
               <NavLink
-                to="/allsales"
+                to="/backoffice/allsales"
                 className={({ isActive }) =>
                   isActive ? styles.activeButton : styles.regularButton
                 }
@@ -127,7 +127,9 @@ const Sidebar = () => {
 
       <div className="flex w-full items-center mb-4 justify-evenly">
         <UserButton />
-        <SignOutButton className={styles.signOutButton} />
+        <Link to="/">
+          <SignOutButton className={styles.signOutButton} />
+        </Link>
       </div>
     </div>
   );
