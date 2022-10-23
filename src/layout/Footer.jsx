@@ -11,7 +11,7 @@ const Footer = () => {
   return (
     <div
       id="footer"
-      className="flex justify-center bg-orange-400 items-center w-full px-5 py-10 bg-black-900"
+      className="flex flex-col justify-center bg-orange-400 items-center w-full px-5 py-10 bg-black-900"
     >
       <div className="flex justify-start lg:gap-0 gap-10 lg:justify-between flex-col lg:flex-row items-start w-full max-w-[1400px]">
         <div className="flex justify-start items-start flex-col gap-6">
@@ -162,6 +162,14 @@ const Footer = () => {
             </a>
           </div> */}
         </div>
+      </div>
+      <div className="flex items-center justify-center bg-orange-400 mt-10">
+        <p className="text-white w-8/12">
+          RODL DOT Services provides compliance services required by the U.S.
+          Department of Transportation/FMCSA, but it is not affiliated with the
+          U.S. Department of Transportation or the Federal Motor Carrier Safety
+          Administration nor any other Government Agency.
+        </p>
       </div>
     </div>
   );
