@@ -26,13 +26,13 @@ const Search = () => {
 
         {/* Buttons Section */}
         <div className={styles.buttonSectionWrapper}>
-          <Link to="/currentlyDue">
+          <Link to="/backoffice/currentlyDue">
             <button className={styles.button}>CURRENTLY DUE</button>
           </Link>
-          <Link to="/pastDue">
+          <Link to="/backoffice/pastDue">
             <button className={styles.button}>PAST DUE</button>
           </Link>
-          <Link to="/ucrdue">
+          <Link to="/backoffice/ucrdue">
             <button className={styles.button}>UCR</button>
           </Link>
         </div>
