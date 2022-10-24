@@ -123,7 +123,7 @@ const AllSales = () => {
             <button
               className="p-1 bg-violet-200 hover:bg-violet-300 rounded-md shadow-md"
               onClick={() => {
-                navigate(`/companydetails/${currentRow.companyId}`);
+                navigate(`/backoffice/companydetails/${currentRow.companyId}`);
               }}
             >
               Company Details
