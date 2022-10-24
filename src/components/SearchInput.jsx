@@ -65,7 +65,7 @@ const SearchInput = () => {
         <ul className={styles.searchResultsListWrapper}>
           {filtered?.map((company) => {
             return (
-              <Link to={`/companydetails/${company._id}`}>
+              <Link to={`/backoffice/companydetails/${company._id}`}>
                 <li key={company?._id} className={styles.searchResultItem}>
                   #{company?.usdot} - {company?.dba_name} - {company?.email}
                 </li>

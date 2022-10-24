@@ -37,11 +37,11 @@ const Backoffice = () => {
                 <div className="w-full h-full items-center justify-center flex flex-col bg-slate-50">
                   <Routes>
                     <Route path="/" element={<Search />}></Route>
+                    <Route path="/sales" element={<Sales />}></Route>
                     <Route
                       path="/companydetails/:id"
                       element={<CompanyDetails />}
                     ></Route>
-                    <Route path="/sales" element={<Sales />}></Route>
                     <Route
                       path="/allcompanies"
                       element={<AllCompanies />}
