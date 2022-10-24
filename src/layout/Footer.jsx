@@ -17,7 +17,7 @@ const Footer = () => {
         <div className="flex justify-start items-start flex-col gap-6">
           <h1 className="text-white text-[40px] font-bold ">RODL</h1>
           <p className="text-white text-base font-light max-w-[400px]">
-            Pleaes use the form below to contact us. One of our agent will
+            Please use the form below to contact us. One of our agents will
             assist you within 24 hours!
           </p>
           <div className="flex flex-col justify-start items-start gap-2 w-full">
