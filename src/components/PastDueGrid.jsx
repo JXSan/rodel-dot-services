@@ -13,7 +13,7 @@ const columns = [
       return (
         <Link
           className="p-2 rounded-md bg-gray-100 shadow-lg hover:bg-gray-500"
-          to={`/companydetails/${params.id}`}
+          to={`/backoffice/companydetails/${params.id}`}
         >
           Details
         </Link>
