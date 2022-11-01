@@ -246,7 +246,7 @@ const CompanyDetails = () => {
   };
 
   const handleUCRUpdate = async () => {
-    navigate(`/ucr/${id}`);
+    navigate(`/backoffice/ucr/${id}`);
   };
 
   useEffect(() => {
